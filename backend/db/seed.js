@@ -94,7 +94,13 @@ const init = async () => {
     await createTables();
     await createUser("user01", "pass1234!", "user01@example.com");
     await createCategory("guitar");
-    await createProduct("acoustic guitar", "One of a kind acoustic guitar.", 149.99, 1, null);
+    await createProduct(
+      "acoustic guitar",
+      "One of a kind acoustic guitar.",
+      149.99,
+      1,
+      null
+    );
     await createOrder(1, 50.13, "shipped");
     await createCart(1, 1, 4);
   } catch (error) {
