@@ -26,7 +26,41 @@ const createOrder = async (user_id, total_amount, status) => {
   }
 };
 
+const getOrders = async (user_id) => {
+  const { rows } = await client.query(
+    `SELECT * FROM orders
+     WHERE user_id = $1
+     ORDER BY order_date DESC`,
+    [user_id]
+  );
+
+  return rows; // Return the array of orders
+};
+
+/**
+ * Get all orders from the database.
+ * @returns {object} - Result of the operation, including success status and an array of orders or error message.
+ */
+const getAllOrders = async () => {
+  try {
+    // Query the database to fetch all orders
+    const { rows } = await client.query(`
+      SELECT id, user_id, total_amount, status, order_date, updated_at 
+      FROM orders
+      ORDER BY order_date DESC;
+    `);
+    // Return success status and the list of orders
+    return { success: true, orders: rows };
+  } catch (error) {
+    console.error("ERROR FETCHING ORDERS: ", error);
+    // Return error information if fetching fails
+    return { success: false, error: error.message };
+  }
+};
+
 // Export the createOrder function to be used in other modules
 module.exports = {
   createOrder,
+  getOrders,
+  getAllOrders
 };

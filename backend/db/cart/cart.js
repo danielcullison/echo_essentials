@@ -43,8 +43,34 @@ const getCart = async (user_id) => {
   }
 };
 
+const updateCartItem = async (user_id, product_id, { quantity }) => {
+  const result = await client.query(
+    `UPDATE cart
+     SET quantity = $1, updated_at = CURRENT_TIMESTAMP
+     WHERE user_id = $2 AND product_id = $3
+     RETURNING *`,
+    [quantity, user_id, product_id]
+  );
+
+  return result.rows[0]; // Return the updated cart item
+};
+
+// Function to delete a cart item
+const deleteCartItem = async (user_id, product_id) => {
+  const result = await client.query(
+    `DELETE FROM cart
+     WHERE user_id = $1 AND product_id = $2
+     RETURNING *`,
+    [user_id, product_id]
+  );
+
+  return result.rowCount > 0; // Returns true if the item was deleted
+};
+
 // Export the createCart function to be used in other modules
 module.exports = {
   createCart,
   getCart,
+  updateCartItem,
+  deleteCartItem
 };

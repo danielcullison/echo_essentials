@@ -111,8 +111,79 @@ const findUserWithToken = async (token) => {
   return { success: true, user: response.rows[0] };
 };
 
+const getUserInfo = async (user_id) => {
+  const { rows } = await client.query(
+    `SELECT id, username, email
+     FROM users 
+     WHERE id = $1`,
+    [user_id]
+  );
+
+  return rows[0]; // Return the user object or undefined if not found
+};
+
+const updateUserInfo = async (user_id, { username, email, password }) => {
+  const updates = [];
+  const values = [];
+
+  if (username) {
+    updates.push(`username = $${updates.length + 1}`);
+    values.push(username);
+  }
+
+  if (email) {
+    updates.push(`email = $${updates.length + 1}`);
+    values.push(email);
+  }
+
+  if (password) {
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    updates.push(`password = $${updates.length + 1}`);
+    values.push(hashedPassword);
+  }
+
+  // If no updates, return early
+  if (updates.length === 0) {
+    return null; // No fields to update
+  }
+
+  const result = await client.query(
+    `UPDATE users
+     SET ${updates.join(", ")}, updated_at = CURRENT_TIMESTAMP
+     WHERE id = $${updates.length + 1}
+     RETURNING id, username, email, created_at, updated_at`,
+    [...values, user_id]
+  );
+
+  return result.rows[0]; // Return the updated user object
+};
+
+/**
+ * Get all users from the database.
+ * @returns {object} - Result of the operation, including success status and an array of users or error message.
+ */
+const getUsers = async () => {
+  try {
+    // Query the database to fetch all users
+    const { rows } = await client.query(`
+      SELECT id, username, email, created_at, updated_at 
+      FROM users
+      ORDER BY created_at DESC;
+    `);
+    // Return success status and the list of users
+    return { success: true, users: rows };
+  } catch (error) {
+    console.error("ERROR FETCHING USERS: ", error);
+    // Return error information if fetching fails
+    return { success: false, error: error.message };
+  }
+};
+
 module.exports = {
   createUser,
   authenticate,
   findUserWithToken,
+  getUserInfo,
+  updateUserInfo,
+  getUsers
 };
