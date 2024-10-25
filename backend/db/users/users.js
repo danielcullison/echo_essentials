@@ -1,3 +1,4 @@
+//require('dotenv').config();
 const client = require("../client.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -88,8 +89,11 @@ const findUserWithToken = async (token) => {
   let id;
   try {
     // Verify the token and extract the user ID from its payload
+    console.log("TOKEN", token);
+    console.log("JWT SECRET", JWT_SECRET);
     const payload = jwt.verify(token, JWT_SECRET);
     id = payload.id; // Extract the user ID
+    console.log("PAYLOAD", payload);
   } catch (ex) {
     // If token verification fails, return an unauthorized error
     return { success: false, error: "not authorized" };
@@ -102,6 +106,7 @@ const findUserWithToken = async (token) => {
     WHERE id = $1
   `;
   const response = await client.query(SQL, [id]);
+  console.log("RESPONSE", response);
   // If no user is found with the ID, return an unauthorized error
   if (!response.rows.length) {
     return { success: false, error: "not authorized" };

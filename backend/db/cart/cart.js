@@ -9,14 +9,31 @@ const client = require("../client.js");
  */
 const createCart = async (user_id, product_id, quantity) => {
   try {
+    // Ensure inputs are integers
+    const userId = parseInt(user_id, 10);
+    const productId = parseInt(product_id, 10);
+    const qty = parseInt(quantity, 10);
+    console.log("User ID", user_id);
+    console.log("Product ID", product_id);
+    console.log("QTY", quantity);
+    // Validate inputs
+    if (isNaN(userId) || isNaN(productId) || isNaN(qty)) {
+      throw new Error(
+        "Invalid input: user_id, product_id, and quantity must be numbers."
+      );
+    }
+
     // Insert a new entry into the cart table for the specified user and product
     await client.query(
       `
         INSERT INTO cart (user_id, product_id, quantity)
         VALUES ($1, $2, $3);
-    `,
-      [user_id, product_id, quantity] // Values for the query placeholders
+      `,
+      [userId, productId, qty] // Values for the query placeholders
     );
+
+    console.log("HERE");
+
     // Return success status if the operation is successful
     return { success: true };
   } catch (error) {
@@ -72,5 +89,5 @@ module.exports = {
   createCart,
   getCart,
   updateCartItem,
-  deleteCartItem
+  deleteCartItem,
 };
