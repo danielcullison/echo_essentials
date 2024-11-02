@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Gowun+Dodum&family=Orbitron:wght@400..900&family=Prata&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+  background-color: #ffffff; /* Soft white background */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.navbar:hover {
+  background-color: rgba(255, 255, 255, 0.98); /* Slight darkening on hover */
+}
+
+.logo img {
+  width: 200px;
+  height: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+  gap: 15px; /* More spacing for a cleaner look */
+  flex-grow: 1;
+}
+
+.nav-links li {
+  cursor: pointer;
+  text-align: center;
+  line-height: 1;
+  font-family: "Orbitron", sans-serif;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links li a {
+  color: #333; /* Set link color to match the nav link color */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.3s ease; /* Transition for color change */
+}
+
+.nav-links li a:hover {
+  color: #555; /* Change color on hover if desired */
+}
+
+.nav-links li:hover {
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.nav-links img {
+  width: 24px; /* Slightly larger icons for better visibility */
+  height: 24px;
+  vertical-align: middle;
+  margin: 0 10px;
+  transition: transform 0.3s ease;
+}
+
+.nav-links img:hover {
+  transform: scale(1.2); /* Slightly increase icon size on hover */
+}
+
+.logo {
+  margin-left: 20px;
+  display: flex; /* Ensure the logo is treated as a flex item */
+  align-items: center; /* Center align the logo vertically */
+}
+
+.search-bar {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 80px;
+  z-index: 999;
+  transition: opacity 0.3s ease; }
+
+.search-bar.active {
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input {
+  padding: 12px;
+  border: 2px solid #ddd; 
+  border-radius: 30px;
+  width: 300px;
+  font-family: "Orbitron", sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-account-menu {
+  position: absolute;
+  top: 150px;
+  right: 50px;
+  background-color: white; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 8px;
+  width: 120px; /* Slightly wider for more space */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.user-account-menu a {
+  text-decoration: none; /* Ensure links do not have underlines */
+  color: inherit; /* Ensure links inherit color from parent */
+}
+
+.user-account-menu.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.user-account-menu ul {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+}
+
+.user-account-menu li {
+  padding: 10px 15px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-account-menu li a {
+  color: inherit; /* Inherit color from the list item */
+}
+
+
+.user-account-menu li:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+  text-decoration: none;
+}
+
+.user-account-menu li:hover a {
+  text-decoration: none; /* Ensure no underline on hover */
+}

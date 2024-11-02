@@ -51,7 +51,7 @@ const authenticate = async ({ username, password }) => {
     // Query the database to find the user by username
     const { rows } = await client.query(
       `
-        SELECT id, password
+        SELECT id, username, password, email
         FROM users
         WHERE username = $1
       `,
@@ -72,7 +72,9 @@ const authenticate = async ({ username, password }) => {
 
     // Generate a JWT token if authentication is successful
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
-    return { success: true, token }; // Return the token
+    
+    // Return the token and user information
+    return { success: true, token, user: { id: user.id, username: user.username, email: user.email } }; // Include user details
   } catch (error) {
     console.error("AUTHENTICATION ERROR: ", error);
     // Return an error message if authentication fails
@@ -89,11 +91,8 @@ const findUserWithToken = async (token) => {
   let id;
   try {
     // Verify the token and extract the user ID from its payload
-    console.log("TOKEN", token);
-    console.log("JWT SECRET", JWT_SECRET);
     const payload = jwt.verify(token, JWT_SECRET);
     id = payload.id; // Extract the user ID
-    console.log("PAYLOAD", payload);
   } catch (ex) {
     // If token verification fails, return an unauthorized error
     return { success: false, error: "not authorized" };
@@ -101,20 +100,21 @@ const findUserWithToken = async (token) => {
 
   // Query the database to find the user by ID
   const SQL = `
-    SELECT id, username
+    SELECT id, username, email
     FROM users
     WHERE id = $1
   `;
   const response = await client.query(SQL, [id]);
-  console.log("RESPONSE", response);
+  
   // If no user is found with the ID, return an unauthorized error
   if (!response.rows.length) {
     return { success: false, error: "not authorized" };
   }
 
-  // Return user details if found
-  return { success: true, user: response.rows[0] };
+  // Return user details including userId
+  return { success: true, user: { id: response.rows[0].id, username: response.rows[0].username, email: response.rows[0].email } };
 };
+
 
 const getUserInfo = async (user_id) => {
   const { rows } = await client.query(

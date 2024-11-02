@@ -1,0 +1,96 @@
+/* ProductDetails.css */
+
+.product-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #DCDCDC; /* Light background */
+  min-height: 100vh; /* Full height */
+  font-family: "Orbitron", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.product-details-back-button {
+  margin-bottom: 20px; /* Space below the button */
+  padding: 10px 20px; /* Button padding */
+  font-size: 1rem; /* Font size */
+  color: #fff; /* White text color */
+  background-color: #333; /* Dark background */
+  border: none; /* Remove border */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Transition for hover effect */
+  font-family: "Orbitron", sans-serif;
+}
+
+.product-details-back-button:hover {
+  background-color: #555; /* Lighter shade on hover */
+}
+
+.product-details-content {
+  display: flex; /* Flexbox layout for image and info */
+  align-items: flex-start; /* Align items at the start */
+  gap: 20px; /* Space between image and info */
+}
+
+.product-details-image {
+  flex: 1; /* Allow the image to take available space */
+}
+
+.product-details-image-img {
+  width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.product-details-info {
+  flex: 2; /* Allow the info to take more space */
+  display: flex;
+  flex-direction: column; /* Stack info vertically */
+  align-items: flex-start; /* Align items to the left */
+}
+
+.product-details-name {
+  font-size: 2rem; /* Title size */
+  color: #333;
+  margin: 10px 0; /* Vertical margin */
+}
+
+.product-details-price {
+  font-size: 1.5rem; /* Price size */
+  color: #555;
+  margin: 10px 0; /* Vertical margin */
+}
+
+.product-details-description {
+  font-size: 1rem; /* Description size */
+  color: #777; /* Slightly lighter color */
+  margin: 10px 0; /* Vertical margin */
+}
+
+.product-details-add-to-cart {
+  padding: 10px 20px; /* Button padding */
+  font-size: 1rem; /* Button font size */
+  color: #fff; /* White text */
+  background-color: #333; /* Button color */
+  border: none; /* Remove border */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  margin-top: 10px; /* Space above button */
+  font-family: "Orbitron", sans-serif;
+}
+
+.product-details-add-to-cart:hover,
+.product-details-add-to-cart:focus {
+  background-color: #555; /* Lighter shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.product-details-loading, .product-details-error {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}

@@ -165,6 +165,7 @@ const init = async () => {
       "spicegirl2024",
       "victoria@example.com"
     );
+    await createUser("test1", "test1", "test1@example.com");
 
     await createCategory("guitar");
     await createCategory("drums");
@@ -358,7 +359,7 @@ const init = async () => {
     );
 
     await createOrder(1, 50.13, "shipped");
-    await createCart(11, 1, 3);
+    await createCart(1, 1, 1);
   } catch (error) {
     console.error("ERROR CONNECTING TO DATABASE: ", error);
   } finally {

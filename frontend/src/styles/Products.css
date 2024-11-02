@@ -1,0 +1,100 @@
+/* Products.css */
+
+.products-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #DCDCDC; /* Light background for the product list */
+  min-height: 100vh;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  font-family: "Orbitron", sans-serif;
+}
+
+.products-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid layout */
+  gap: 20px; /* Space between cards */
+  width: 100%;
+  max-width: 1200px; /* Limit max width */
+}
+
+.products-card {
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  background: #fff; /* Card background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  overflow: hidden; /* Prevent overflow */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  padding: 20px; /* Add padding inside the card */
+}
+
+.products-card a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Link color */
+}
+
+.products-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.products-card:hover a {
+  text-decoration: underline; /* Underline link on hover */
+}
+
+.products-image {
+  width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.products-name {
+  font-size: 1.5rem; /* Product title size */
+  color: #333;
+  margin: 10px 0; /* Vertical margin */
+  text-align: center; /* Center text */
+}
+
+.products-price {
+  font-size: 1.2rem; /* Price size */
+  color: #555;
+  margin: 10px 0; /* Vertical margin */
+  text-align: center; /* Center text */
+}
+
+.products-add-to-cart {
+  padding: 10px 20px; /* Button padding */
+  font-size: 1rem; /* Button font size */
+  color: #fff; /* Button text color */
+  background-color: #333; /* Button color */
+  border: none; /* Remove default border */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  margin-top: 10px; /* Space above button */
+  font-family: "Orbitron", sans-serif;}
+
+.products-add-to-cart:hover,
+.products-add-to-cart:focus {
+  background-color: #555; /* Lighter shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.products-loading, .products-error {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+
+

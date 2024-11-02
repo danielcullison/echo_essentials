@@ -1,0 +1,85 @@
+/* Login.css */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: #DCDCDC; /* Light background to match the app */
+  min-height: 100vh; /* Full height */
+  font-family: "Orbitron", sans-serif; /* Consistent font */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.login-title {
+  font-size: 3rem; /* Large title size */
+  color: #333; /* Dark text color */
+  margin-bottom: 30px; /* Space below the title */
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+  width: 100%; /* Full width */
+  max-width: 400px; /* Limit max width */
+}
+
+.login-input-group {
+  margin-bottom: 20px; /* Space between input groups */
+}
+
+.login-label {
+  font-size: 1.2rem; /* Label font size */
+  color: #333; /* Dark text color */
+  margin-bottom: 5px; /* Space below label */
+}
+
+.login-input {
+  padding: 12px; /* Padding inside input */
+  font-size: 1rem; /* Input font size */
+  border: 2px solid #ddd; /* Light border */
+  border-radius: 10px; /* Rounded corners */
+  width: 100%; /* Full width */
+  transition: border-color 0.3s ease; /* Smooth border transition */
+}
+
+.login-input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #007bff; /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+}
+
+.login-error {
+  color: #d9534f; /* Bootstrap danger color */
+  font-size: 1rem; /* Error message size */
+  margin-top: 10px; /* Space above error message */
+}
+
+.login-success {
+  color: #5cb85c; /* Bootstrap success color */
+  font-size: 1rem; /* Success message size */
+  margin-top: 10px; /* Space above success message */
+}
+
+.login-button {
+  padding: 12px; /* Button padding */
+  font-size: 1.2rem; /* Button font size */
+  color: #fff; /* White text */
+  background-color: #333; /* Dark background */
+  border: none; /* Remove border */
+  border-radius: 30px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  font-family: "Orbitron", sans-serif;
+}
+
+.login-button:hover {
+  background-color: #555; /* Lighter shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.login-button:disabled {
+  background-color: #999; /* Disabled button color */
+  cursor: not-allowed; /* Not-allowed cursor */
+}

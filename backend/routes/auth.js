@@ -4,7 +4,7 @@ const { isLoggedIn } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const { username, password, email } = req.body;
   try {
     const user = await createUser(username, password, email);

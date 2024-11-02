@@ -10,19 +10,6 @@ const { getOrders } = require("../db/orders/orders.js");
 
 const router = express.Router();
 
-// Route to create a new user
-router.post("/", async (req, res) => {
-  const { username, password, email } = req.body;
-
-  try {
-    const user = await createUser(username, password, email);
-    res.status(201).json(user);
-  } catch (error) {
-    console.error("ERROR CREATING USER: ", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // Route to get user profile information
 router.get("/:id", isLoggedIn, checkUserAuthorization, async (req, res) => {
   const { id } = req.params;

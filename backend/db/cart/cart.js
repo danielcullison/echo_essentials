@@ -13,9 +13,7 @@ const createCart = async (user_id, product_id, quantity) => {
     const userId = parseInt(user_id, 10);
     const productId = parseInt(product_id, 10);
     const qty = parseInt(quantity, 10);
-    console.log("User ID", user_id);
-    console.log("Product ID", product_id);
-    console.log("QTY", quantity);
+
     // Validate inputs
     if (isNaN(userId) || isNaN(productId) || isNaN(qty)) {
       throw new Error(
@@ -32,8 +30,6 @@ const createCart = async (user_id, product_id, quantity) => {
       [userId, productId, qty] // Values for the query placeholders
     );
 
-    console.log("HERE");
-
     // Return success status if the operation is successful
     return { success: true };
   } catch (error) {
@@ -47,20 +43,22 @@ const getCart = async (user_id) => {
   try {
     const { rows } = await client.query(
       `
-      SELECT * FROM cart
-      WHERE user_id = $1;
+      SELECT cart.*, products.name AS product_name, products.description, products.price, products.image_url
+      FROM cart
+      JOIN products ON cart.product_id = products.id
+      WHERE cart.user_id = $1;
     `,
       [user_id]
     );
     return { success: true, cart: rows };
   } catch (error) {
     console.error("ERROR FETCHING CART: ", error);
-    // Return error information if the operation fails
     return { success: false, error: error.message };
   }
 };
 
 const updateCartItem = async (user_id, product_id, { quantity }) => {
+  console.log(`Updating cart item for user: ${user_id}, product: ${product_id}, quantity: ${quantity}`);
   const result = await client.query(
     `UPDATE cart
      SET quantity = $1, updated_at = CURRENT_TIMESTAMP
@@ -74,15 +72,26 @@ const updateCartItem = async (user_id, product_id, { quantity }) => {
 
 // Function to delete a cart item
 const deleteCartItem = async (user_id, product_id) => {
-  const result = await client.query(
-    `DELETE FROM cart
-     WHERE user_id = $1 AND product_id = $2
-     RETURNING *`,
-    [user_id, product_id]
-  );
+  try {
+    const result = await client.query(
+      `DELETE FROM cart
+       WHERE user_id = $1 AND product_id = $2
+       RETURNING *`,
+      [user_id, product_id]
+    );
 
-  return result.rowCount > 0; // Returns true if the item was deleted
+    if (result.rowCount === 0) {
+      console.log(`No item found for user_id: ${user_id} and product_id: ${product_id}`);
+      return false; // No rows deleted
+    }
+
+    return true; // Item was deleted successfully
+  } catch (error) {
+    console.error("ERROR DELETING CART ITEM: ", error);
+    throw new Error("Failed to delete cart item");
+  }
 };
+
 
 // Export the createCart function to be used in other modules
 module.exports = {

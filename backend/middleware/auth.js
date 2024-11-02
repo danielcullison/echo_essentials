@@ -2,14 +2,32 @@ const { findUserWithToken } = require("../db/users/users.js");
 
 const isLoggedIn = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    // Check if the Authorization header is present
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: "Authorization token required" });
+    }
+
+    // Extract the token from the Authorization header
+    const token = authHeader.split(' ')[1]; // Assuming the format is "Bearer token"
     if (!token) {
       return res.status(401).json({ error: "Authorization token required" });
     }
-    req.user = await findUserWithToken(token);
-    next();
+
+    // Find the user associated with the token
+    const user = await findUserWithToken(token);
+    
+    // Check if the user was found
+    if (!user) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    
+    // Attach the user to the request object
+    req.user = user;
+    next(); // Proceed to the next middleware or route handler
   } catch (ex) {
-    next(ex);
+    console.error("Authentication error: ", ex);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
