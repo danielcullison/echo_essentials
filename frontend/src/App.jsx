@@ -9,6 +9,7 @@ import "./App.css";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Cart from "./pages/Cart";
+import Admin from "./pages/Admin";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/admin" element={<Admin/>} />
         </Routes>
       </Router>
     </AuthProvider>

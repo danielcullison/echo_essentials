@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
-import "../styles/Cart.css"; // Ensure to import the new CSS file
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import "../styles/Cart.css";
 
 const Cart = () => {
   const { user } = useAuth();
@@ -12,51 +12,104 @@ const Cart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       if (!user) {
-        setError('You must be logged in to view the cart.');
+        setError("You must be logged in to view the cart.");
         setLoading(false);
         return;
       }
       try {
-        const response = await axios.get('http://localhost:3000/api/cart', {
+        const response = await axios.get("http://localhost:3000/api/cart", {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        const fetchedCartItems = Array.isArray(response.data.cart.cart) ? response.data.cart.cart : [];
+        const fetchedCartItems = Array.isArray(response.data.cart.cart)
+          ? response.data.cart.cart
+          : [];
         setCartItems(fetchedCartItems);
       } catch (err) {
-        setError(err.response ? err.response.data.error : 'Error fetching cart');
+        setError(
+          err.response ? err.response.data.error : "Error fetching cart"
+        );
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchCart();
   }, [user]);
-  
+
+  const calculateTotalAmount = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+
+  const createOrder = async () => {
+    if (!user) return;
+
+    const totalAmount = calculateTotalAmount();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/orders",
+        {
+          user_id: user.id,
+          total_amount: totalAmount,
+          status: "pending",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      // Log the response data
+      console.log(response.data);
+
+      // Check the response message instead of a success flag
+      if (response.data.message === "Order created successfully.") {
+        setCartItems([]);
+        alert("Order created successfully!");
+      } else {
+        throw new Error("Failed to create order");
+      }
+    } catch (error) {
+      setError(
+        "Error creating order: " +
+          (error.response ? error.response.data.error : error.message)
+      );
+    }
+  };
+
   const updateQuantity = async (productId, newQuantity) => {
     if (!user || newQuantity < 1) return;
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/cart/${productId}`, { quantity: newQuantity }, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      
+      const response = await axios.put(
+        `http://localhost:3000/api/cart/${productId}`,
+        { quantity: newQuantity },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const updatedItem = response.data;
 
       setCartItems((prevItems) =>
         prevItems.map((item) =>
-          item.product_id === productId ? { ...item, quantity: updatedItem.quantity } : item
+          item.product_id === productId
+            ? { ...item, quantity: updatedItem.quantity }
+            : item
         )
       );
-
     } catch (err) {
-      setError('Error updating item. Please try again.');
+      setError("Error updating item. Please try again.");
     }
   };
-  
+
   const removeItem = async (productId) => {
     if (!user) return;
 
@@ -66,26 +119,35 @@ const Cart = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setCartItems((prevItems) => prevItems.filter((item) => item.product_id !== productId));
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.product_id !== productId)
+      );
     } catch (err) {
-      setError('Error removing item. Please try again.');
+      setError("Error removing item. Please try again.");
     }
   };
-  
+
   const addToCart = async (productId, quantity) => {
     if (!user) return;
     try {
-      const response = await axios.post('http://localhost:3000/api/cart', { product_id: productId, quantity }, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      setCartItems((prevItems) => [...prevItems, { ...response.data, quantity }]);
+      const response = await axios.post(
+        "http://localhost:3000/api/cart",
+        { product_id: productId, quantity },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setCartItems((prevItems) => [
+        ...prevItems,
+        { ...response.data, quantity },
+      ]);
     } catch (err) {
-      setError('Error adding item to cart. Please try again.');
+      setError("Error adding item to cart. Please try again.");
     }
   };
-  
+
   if (loading) return <p className="cart-loading">Loading...</p>;
   if (error) return <p className="cart-error">{error}</p>;
 
@@ -99,9 +161,9 @@ const Cart = () => {
           {cartItems.map((item) => (
             <li key={item.product_id} className="cart-item">
               <h3 className="cart-item-name">{item.product_name}</h3>
-              <img 
-                src={item.image_url} 
-                alt={item.product_name} 
+              <img
+                src={item.image_url}
+                alt={item.product_name}
                 className="cart-item-image"
               />
               <p className="cart-item-description">{item.description}</p>
@@ -118,8 +180,8 @@ const Cart = () => {
                 min="1"
                 className="cart-item-quantity"
               />
-              <button 
-                onClick={() => removeItem(item.product_id)} 
+              <button
+                onClick={() => removeItem(item.product_id)}
                 className="cart-item-remove-button"
               >
                 Remove
@@ -128,7 +190,9 @@ const Cart = () => {
           ))}
         </ul>
       )}
-      <button onClick={() => addToCart('someProductId', 1)} className="cart-add-sample-button">Add Sample Product to Cart</button>
+      <button onClick={createOrder} className="cart-checkout-button">
+        Check Out
+      </button>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT || "shhh"; // Secret for signing JWT tokens, 
  * @param {string} email - The email of the user.
  * @returns {object} - Result of the operation containing success status and user details or error message.
  */
-const createUser = async (username, password, email) => {
+const createUser = async (username, password, email, role = "user") => {
   try {
     // Check if all required fields are provided
     if (!username || !password || !email) {
@@ -24,10 +24,10 @@ const createUser = async (username, password, email) => {
     // Insert the new user into the database
     const { rows } = await client.query(
       `
-      INSERT INTO users (username, password, email)
-      VALUES ($1, $2, $3) RETURNING *;
+      INSERT INTO users (username, password, email, role)
+      VALUES ($1, $2, $3, $4) RETURNING *;
       `,
-      [username, hashedPassword, email]
+      [username, hashedPassword, email, role]
     );
 
     // Return the newly created user details
@@ -38,20 +38,12 @@ const createUser = async (username, password, email) => {
     return { success: false, error: error.message };
   }
 };
-
-/**
- * Authenticate a user with their username and password.
- * @param {Object} credentials - The user's credentials.
- * @param {string} credentials.username - The username of the user.
- * @param {string} credentials.password - The password of the user.
- * @returns {Object} - An object containing either a success flag and a JWT token, or an error message.
- */
 const authenticate = async ({ username, password }) => {
   try {
     // Query the database to find the user by username
     const { rows } = await client.query(
       `
-        SELECT id, username, password, email
+        SELECT id, username, password, email, role
         FROM users
         WHERE username = $1
       `,
@@ -71,10 +63,21 @@ const authenticate = async ({ username, password }) => {
     }
 
     // Generate a JWT token if authentication is successful
-    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
-    
-    // Return the token and user information
-    return { success: true, token, user: { id: user.id, username: user.username, email: user.email } }; // Include user details
+    const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // Return the token and user information, including the role
+    return {
+      success: true,
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+    };
   } catch (error) {
     console.error("AUTHENTICATION ERROR: ", error);
     // Return an error message if authentication fails
@@ -98,23 +101,30 @@ const findUserWithToken = async (token) => {
     return { success: false, error: "not authorized" };
   }
 
-  // Query the database to find the user by ID
+  // Query the database to find the user by ID, including the role
   const SQL = `
-    SELECT id, username, email
+    SELECT id, username, email, role
     FROM users
     WHERE id = $1
   `;
   const response = await client.query(SQL, [id]);
-  
+
   // If no user is found with the ID, return an unauthorized error
   if (!response.rows.length) {
     return { success: false, error: "not authorized" };
   }
 
-  // Return user details including userId
-  return { success: true, user: { id: response.rows[0].id, username: response.rows[0].username, email: response.rows[0].email } };
+  // Return user details including userId and role
+  return {
+    success: true,
+    user: {
+      id: response.rows[0].id,
+      username: response.rows[0].username,
+      email: response.rows[0].email,
+      role: response.rows[0].role, // Include role in the returned user object
+    },
+  };
 };
-
 
 const getUserInfo = async (user_id) => {
   const { rows } = await client.query(
@@ -190,5 +200,5 @@ module.exports = {
   findUserWithToken,
   getUserInfo,
   updateUserInfo,
-  getUsers
+  getUsers,
 };

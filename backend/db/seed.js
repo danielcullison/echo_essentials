@@ -29,6 +29,7 @@ const createTables = async () => {
         username VARCHAR(50) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
+        role VARCHAR(20) DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -92,80 +93,239 @@ const init = async () => {
 
     await dropTables();
     await createTables();
-    await createUser("john_doe", "password123", "john@example.com");
-    await createUser("jane.smith", "securePass456", "jane@example.com");
+    await createUser("admin", "admin123", "admin123@example.comm", "admin");
+    await createUser("john_doe", "password123", "john@example.com", "user");
+    await createUser("jane.smith", "securePass456", "jane@example.com", "user");
     await createUser(
       "alice_wonderland",
       "alice@wonderland",
-      "alice@example.com"
+      "alice@example.com",
+      "user"
     );
-    await createUser("bob_builder", "bobsPassword789", "bob@example.com");
-    await createUser("charlie.brown", "peanuts123", "charlie@example.com");
-    await createUser("david.jones", "david@2024", "david@example.com");
-    await createUser("eve_online", "Eve@Secure!", "eve@example.com");
-    await createUser("frank_furter", "rockyHorror!", "frank@example.com");
+    await createUser(
+      "bob_builder",
+      "bobsPassword789",
+      "bob@example.com",
+      "user"
+    );
+    await createUser(
+      "charlie.brown",
+      "peanuts123",
+      "charlie@example.com",
+      "user"
+    );
+    await createUser("david.jones", "david@2024", "david@example.com", "user");
+    await createUser("eve_online", "Eve@Secure!", "eve@example.com", "user");
+    await createUser(
+      "frank_furter",
+      "rockyHorror!",
+      "frank@example.com",
+      "user"
+    );
     await createUser(
       "george.washington",
       "firstpresident1776",
-      "george@example.com"
+      "george@example.com",
+      "user"
     );
     await createUser(
       "hannah_montana",
       "bestofbothworlds",
-      "hannah@example.com"
+      "hannah@example.com",
+      "user"
     );
-    await createUser("ian.malcolm", "lifeFindsAWay", "ian@example.com");
-    await createUser("julia_child", "bonappetit2024", "julia@example.com");
-    await createUser("kevin_spacey", "houseofcards123", "kevin@example.com");
-    await createUser("lisa.simpson", "notebook@2024", "lisa@example.com");
-    await createUser("mike_tyson", "baddestman@1992", "mike@example.com");
-    await createUser("nina_simon", "feelinggood2024", "nina@example.com");
-    await createUser("oliver_twist", "pleaseSir2024", "oliver@example.com");
-    await createUser("paul_atreides", "chosenone2024", "paul@example.com");
-    await createUser("quinn.snyder", "basketball123", "quinn@example.com");
-    await createUser("rachel_green", "fashionista2024", "rachel@example.com");
-    await createUser("sam_wilson", "falcon@2024", "sam@example.com");
-    await createUser("tina.fey", "30rock2024", "tina@example.com");
-    await createUser("uma_thurman", "pulpfiction2024", "uma@example.com");
+    await createUser("ian.malcolm", "lifeFindsAWay", "ian@example.com", "user");
+    await createUser(
+      "julia_child",
+      "bonappetit2024",
+      "julia@example.com",
+      "user"
+    );
+    await createUser(
+      "kevin_spacey",
+      "houseofcards123",
+      "kevin@example.com",
+      "user"
+    );
+    await createUser(
+      "lisa.simpson",
+      "notebook@2024",
+      "lisa@example.com",
+      "user"
+    );
+    await createUser(
+      "mike_tyson",
+      "baddestman@1992",
+      "mike@example.com",
+      "user"
+    );
+    await createUser(
+      "nina_simon",
+      "feelinggood2024",
+      "nina@example.com",
+      "user"
+    );
+    await createUser(
+      "oliver_twist",
+      "pleaseSir2024",
+      "oliver@example.com",
+      "user"
+    );
+    await createUser(
+      "paul_atreides",
+      "chosenone2024",
+      "paul@example.com",
+      "user"
+    );
+    await createUser(
+      "quinn.snyder",
+      "basketball123",
+      "quinn@example.com",
+      "user"
+    );
+    await createUser(
+      "rachel_green",
+      "fashionista2024",
+      "rachel@example.com",
+      "user"
+    );
+    await createUser("sam_wilson", "falcon@2024", "sam@example.com", "user");
+    await createUser("tina.fey", "30rock2024", "tina@example.com", "user");
+    await createUser(
+      "uma_thurman",
+      "pulpfiction2024",
+      "uma@example.com",
+      "user"
+    );
     await createUser(
       "victor_frankenstein",
       "monster2024",
-      "victor@example.com"
+      "victor@example.com",
+      "user"
     );
-    await createUser("will_smith", "freshprince2024", "will@example.com");
-    await createUser("xena_warrior", "stronghero2024", "xena@example.com");
-    await createUser("yoda.master", "jedi2024", "yoda@example.com");
-    await createUser("zara_fair", "fashion2024", "zara@example.com");
-    await createUser("aaron_patterson", "runaway2024", "aaron@example.com");
-    await createUser("brittany_spears", "oops2024", "brittany@example.com");
-    await createUser("chris_evans", "captain@2024", "chris@example.com");
-    await createUser("debbie_harry", "blondie2024", "debbie@example.com");
-    await createUser("ed_sheeran", "shapeofyou2024", "ed@example.com");
-    await createUser("fiona_gubelmann", "actor2024", "fiona@example.com");
-    await createUser("gregory_house", "diagnosis@2024", "gregory@example.com");
-    await createUser("hayley_williams", "paramore2024", "hayley@example.com");
-    await createUser("isabelle_huppert", "cinema2024", "isabelle@example.com");
-    await createUser("jack_sparrow", "pirate2024", "jack@example.com");
-    await createUser("keira_knightley", "pirates@2024", "keira@example.com");
-    await createUser("loki_odinson", "godofmischief2024", "loki@example.com");
-    await createUser("meryl_streep", "legendary@2024", "meryl@example.com");
+    await createUser(
+      "will_smith",
+      "freshprince2024",
+      "will@example.com",
+      "user"
+    );
+    await createUser(
+      "xena_warrior",
+      "stronghero2024",
+      "xena@example.com",
+      "user"
+    );
+    await createUser("yoda.master", "jedi2024", "yoda@example.com", "user");
+    await createUser("zara_fair", "fashion2024", "zara@example.com", "user");
+    await createUser(
+      "aaron_patterson",
+      "runaway2024",
+      "aaron@example.com",
+      "user"
+    );
+    await createUser(
+      "brittany_spears",
+      "oops2024",
+      "brittany@example.com",
+      "user"
+    );
+    await createUser(
+      "chris_evans",
+      "captain@2024",
+      "chris@example.com",
+      "user"
+    );
+    await createUser(
+      "debbie_harry",
+      "blondie2024",
+      "debbie@example.com",
+      "user"
+    );
+    await createUser("ed_sheeran", "shapeofyou2024", "ed@example.com", "user");
+    await createUser(
+      "fiona_gubelmann",
+      "actor2024",
+      "fiona@example.com",
+      "user"
+    );
+    await createUser(
+      "gregory_house",
+      "diagnosis@2024",
+      "gregory@example.com",
+      "user"
+    );
+    await createUser(
+      "hayley_williams",
+      "paramore2024",
+      "hayley@example.com",
+      "user"
+    );
+    await createUser(
+      "isabelle_huppert",
+      "cinema2024",
+      "isabelle@example.com",
+      "user"
+    );
+    await createUser("jack_sparrow", "pirate2024", "jack@example.com", "user");
+    await createUser(
+      "keira_knightley",
+      "pirates@2024",
+      "keira@example.com",
+      "user"
+    );
+    await createUser(
+      "loki_odinson",
+      "godofmischief2024",
+      "loki@example.com",
+      "user"
+    );
+    await createUser(
+      "meryl_streep",
+      "legendary@2024",
+      "meryl@example.com",
+      "user"
+    );
     await createUser(
       "nicolas_cage",
       "nationaltreasure2024",
-      "nicolas@example.com"
+      "nicolas@example.com",
+      "user"
     );
-    await createUser("oprah_winfrey", "inspiration2024", "oprah@example.com");
-    await createUser("peter_parker", "spiderman2024", "peter@example.com");
-    await createUser("quincy_jones", "musiclegend2024", "quincy@example.com");
-    await createUser("rihanna", "music@2024", "rihanna@example.com");
-    await createUser("sophia_loren", "cinemaqueen2024", "sophia@example.com");
-    await createUser("tony_stark", "ironman2024", "tony@example.com");
+    await createUser(
+      "oprah_winfrey",
+      "inspiration2024",
+      "oprah@example.com",
+      "user"
+    );
+    await createUser(
+      "peter_parker",
+      "spiderman2024",
+      "peter@example.com",
+      "user"
+    );
+    await createUser(
+      "quincy_jones",
+      "musiclegend2024",
+      "quincy@example.com",
+      "user"
+    );
+    await createUser("rihanna", "music@2024", "rihanna@example.com", "user");
+    await createUser(
+      "sophia_loren",
+      "cinemaqueen2024",
+      "sophia@example.com",
+      "user"
+    );
+    await createUser("tony_stark", "ironman2024", "tony@example.com", "user");
     await createUser(
       "victoria_beckham",
       "spicegirl2024",
-      "victoria@example.com"
+      "victoria@example.com",
+      "user"
     );
-    await createUser("test1", "test1", "test1@example.com");
+    await createUser("test1", "test1", "test1@example.com", "user");
+
+    console.log("USERS CREATED SUCCESSFULLY");
 
     await createCategory("guitar");
     await createCategory("drums");
@@ -357,9 +517,6 @@ const init = async () => {
       3,
       "https://www.yamaha.com/yamahavgn/PIM/Images/DGX-670B-f-0001_deb7a4ab696380dc3e66f6422d907bba.jpg"
     );
-
-    await createOrder(1, 50.13, "shipped");
-    await createCart(1, 1, 1);
   } catch (error) {
     console.error("ERROR CONNECTING TO DATABASE: ", error);
   } finally {

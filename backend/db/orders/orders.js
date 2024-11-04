@@ -1,27 +1,18 @@
 const client = require("../client.js");
 
-/**
- * Create a new order in the database.
- * @param {number} user_id - The ID of the user placing the order.
- * @param {number} total_amount - The total amount for the order.
- * @param {string} status - The current status of the order (e.g., "pending", "completed").
- * @returns {object} - Result of the operation, indicating success or an error message.
- */
 const createOrder = async (user_id, total_amount, status) => {
   try {
-    // Insert the new order into the orders table
-    await client.query(
+    const result = await client.query(
       `
-        INSERT INTO orders (user_id, total_amount, status)
-        VALUES ($1, $2, $3);
+      INSERT INTO orders (user_id, total_amount, status)
+      VALUES ($1, $2, $3) RETURNING id;
       `,
-      [user_id, total_amount, status] // Values for the query placeholders
+      [user_id, total_amount, status]
     );
-    // Return success status if the operation is successful
-    return { success: true };
+
+    return { success: true, orderId: result.rows[0].id };
   } catch (error) {
     console.error("ERROR CREATING ORDER: ", error);
-    // Return error information if the operation fails
     return { success: false, error: error.message };
   }
 };
@@ -37,10 +28,6 @@ const getOrders = async (user_id) => {
   return rows; // Return the array of orders
 };
 
-/**
- * Get all orders from the database.
- * @returns {object} - Result of the operation, including success status and an array of orders or error message.
- */
 const getAllOrders = async () => {
   try {
     // Query the database to fetch all orders

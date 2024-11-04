@@ -21,6 +21,8 @@ const isLoggedIn = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ error: "Invalid token" });
     }
+
+    console.log("Authenticated user:", user);
     
     // Attach the user to the request object
     req.user = user;
@@ -39,7 +41,8 @@ const checkUserAuthorization = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  if (req.user && req.user.role === "admin") {
+  console.log("Checking admin for user:", req.user);
+  if (req.user && req.user.user.role === "admin") {
     return next();
   }
   return res.status(403).json({ error: "Forbidden: Admin access required" });
@@ -48,5 +51,5 @@ const isAdmin = (req, res, next) => {
 module.exports = {
   isLoggedIn,
   checkUserAuthorization,
-  isAdmin,
+  isAdmin
 };

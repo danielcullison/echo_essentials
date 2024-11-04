@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Updated import
+import { Link, useNavigate } from "react-router-dom";
 import echoEssentialsLogo from "../assets/echoEssentialsLogo.png";
 import accountIcon from "../assets/accountIcon.png";
 import searchIcon from "../assets/searchIcon.png";
@@ -8,27 +8,26 @@ import "../styles/Navbar.css";
 import { useAuth } from "../context/AuthContext"; // Import your AuthContext
 
 const Navbar = () => {
-  const { logout } = useAuth(); // Destructure the logout function from context
+  const { logout, user } = useAuth(); // Destructure logout and user from context
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);
-  const navigate = useNavigate(); // Use useNavigate instead
+  const navigate = useNavigate();
 
   const toggleUserMenu = () => {
     setUserMenuOpen((prev) => !prev);
-    if (isSearchBarVisible) setSearchBarVisible(false); // Close search bar if it's open
+    if (isSearchBarVisible) setSearchBarVisible(false);
   };
 
   const toggleSearchBar = () => {
     setSearchBarVisible((prev) => !prev);
-    if (isUserMenuOpen) setUserMenuOpen(false); // Close user menu if it's open
+    if (isUserMenuOpen) setUserMenuOpen(false);
   };
 
   const handleLogout = () => {
-    logout(); // Call the logout function
-    navigate("/"); // Redirect to home after logout
+    logout();
+    navigate("/");
   };
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       const userMenu = document.querySelector(".user-account-menu");
@@ -64,7 +63,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo">
-        <Link to="/"><img className="logo" src={echoEssentialsLogo} alt="logo" /></Link>
+        <Link to="/">
+          <img className="logo" src={echoEssentialsLogo} alt="logo" />
+        </Link>
       </div>
       <ul className="nav-links">
         <li className="home">
@@ -82,7 +83,9 @@ const Navbar = () => {
           />
         </li>
         <li>
-          <Link to="/cart"><img className="cart-icon" src={cartIcon} alt="cart icon" /></Link>
+          <Link to="/cart">
+            <img className="cart-icon" src={cartIcon} alt="cart icon" />
+          </Link>
         </li>
         <li>
           <img
@@ -99,9 +102,23 @@ const Navbar = () => {
       {isUserMenuOpen && (
         <div className={`user-account-menu active`}>
           <ul>
-            <Link to="signup"><li>Sign Up</li></Link>
-            <Link to="login"><li>Login</li></Link>
-            <li onClick={handleLogout}>Logout</li> {/* Logout option */}
+            <Link to="/signup">
+              <li>Sign Up</li>
+            </Link>
+            <Link to="/login">
+              <li>Login</li>
+            </Link>
+            {user && user.role === "admin" ? ( // Check if user is admin
+              <>
+                {console.log("User role:", user.role)} {/* Debugging line */}
+                <Link to="/admin">
+                  <li>Admin</li>
+                </Link>
+              </>
+            ) : (
+              console.log("User is not admin or user is null") // Debugging line
+            )}
+            <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>
       )}

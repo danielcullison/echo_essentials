@@ -11,7 +11,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    return token ? { token, userId } : null; // Set user object with token and userId or null
+    const role = localStorage.getItem('role'); // Retrieve the user role from localStorage
+    return token ? { token, userId, role } : null; // Set user object with token, userId, and role or null
   });
   
   const [error, setError] = useState('');
@@ -28,10 +29,14 @@ export const AuthProvider = ({ children }) => {
       }
   
       const token = response.data.token;
-      const userId = response.data.user.id; // Change this to access the correct property
-      setUser({ token, userId });
+      const userId = response.data.user.id; // Access the correct property for userId
+      const role = response.data.user.role; // Access the correct property for user role
+      setUser({ token, userId, role });
+      
+      // Save token, userId, and role in localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
+      localStorage.setItem('role', role); // Store the role in localStorage
     } catch (err) {
       setError(err.message);
     } finally {
@@ -43,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('token');
     localStorage.removeItem('userId'); // Remove userId from localStorage
+    localStorage.removeItem('role'); // Remove role from localStorage
   };
 
   return (

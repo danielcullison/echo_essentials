@@ -6,6 +6,7 @@ const productRoutes = require("../routes/products");
 const userRoutes = require("../routes/users");
 const cartRoutes = require("../routes/cart");
 const adminRoutes = require("../routes/admin");
+const orderRoutes = require("../routes/orders");
 
 const app = express();
 client.connect(); // Connect to the database client
@@ -19,6 +20,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Root route
 app.get("/", (req, res) => {
