@@ -4,7 +4,7 @@ import "../styles/Home.css"; // Import the CSS file
 
 const Home = () => {
   return (
-    <div className="home-container"> {/* Add class for styling */}
+    <div className="home-container">
       <h1 className="home-title">Find Your Rhythm.</h1>
       <Link to="/products">
         <button className="shop-now">

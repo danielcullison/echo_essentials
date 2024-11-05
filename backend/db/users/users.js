@@ -1,26 +1,29 @@
-//require('dotenv').config();
+// Importing necessary dependencies
 const client = require("../client.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const SALT_ROUNDS = 10; // Number of rounds to use when hashing passwords
-const JWT_SECRET = process.env.JWT || "shhh"; // Secret for signing JWT tokens, defaulting to "shhh"
+
+const SALT_ROUNDS = 10; // Salt rounds for bcrypt hashing
+const JWT_SECRET = process.env.JWT || "shhh"; // JWT secret for token generation
 
 /**
  * Create a new user in the database.
- * @param {string} username - The username of the user.
- * @param {string} password - The password of the user.
- * @param {string} email - The email of the user.
- * @returns {object} - Result of the operation containing success status and user details or error message.
+ * @param {string} username - The user's username.
+ * @param {string} password - The user's password.
+ * @param {string} email - The user's email address.
+ * @param {string} role - The user's role (default is "user").
+ * @returns {Object} - The result of the operation (success or error) and the created user.
  */
 const createUser = async (username, password, email, role = "user") => {
   try {
-    // Check if all required fields are provided
+    // Ensure all required fields are provided
     if (!username || !password || !email) {
       return { success: false, error: "All fields are required." };
     }
 
-    // Hash the password for secure storage
+    // Hash the password to store it securely in the database
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
     // Insert the new user into the database
     const { rows } = await client.query(
       `
@@ -30,17 +33,22 @@ const createUser = async (username, password, email, role = "user") => {
       [username, hashedPassword, email, role]
     );
 
-    // Return the newly created user details
+    // Return the created user details
     return { success: true, user: rows[0] };
   } catch (error) {
     console.error("ERROR CREATING USER: ", error);
-    // Return error information if the operation fails
     return { success: false, error: error.message };
   }
 };
+
+/**
+ * Authenticate a user by verifying their username and password.
+ * @param {Object} credentials - The user's login credentials (username and password).
+ * @returns {Object} - The result of the authentication (success or error) and JWT token if successful.
+ */
 const authenticate = async ({ username, password }) => {
   try {
-    // Query the database to find the user by username
+    // Query the database for the user with the provided username
     const { rows } = await client.query(
       `
         SELECT id, username, password, email, role
@@ -52,14 +60,15 @@ const authenticate = async ({ username, password }) => {
 
     // If no user is found, return an unauthorized error
     if (!rows.length) {
-      return { success: false, error: "not authorized" };
+      return { success: false, error: "Not authorized" };
     }
 
     const user = rows[0];
+
     // Compare the provided password with the stored hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return { success: false, error: "not authorized" };
+      return { success: false, error: "Not authorized" };
     }
 
     // Generate a JWT token if authentication is successful
@@ -67,7 +76,7 @@ const authenticate = async ({ username, password }) => {
       expiresIn: "1h",
     });
 
-    // Return the token and user information, including the role
+    // Return the JWT token and user information
     return {
       success: true,
       token,
@@ -80,28 +89,27 @@ const authenticate = async ({ username, password }) => {
     };
   } catch (error) {
     console.error("AUTHENTICATION ERROR: ", error);
-    // Return an error message if authentication fails
     return { success: false, error: "Authentication failed" };
   }
 };
 
 /**
- * Find a user based on a provided JWT token.
- * @param {string} token - The JWT token of the user.
- * @returns {Object} - An object containing either a success flag and user details, or an error message.
+ * Find a user based on their JWT token.
+ * @param {string} token - The JWT token.
+ * @returns {Object} - The result of the token verification and user retrieval.
  */
 const findUserWithToken = async (token) => {
   let id;
   try {
-    // Verify the token and extract the user ID from its payload
+    // Verify the JWT token and extract the user ID
     const payload = jwt.verify(token, JWT_SECRET);
-    id = payload.id; // Extract the user ID
+    id = payload.id; // Extract the user ID from the payload
   } catch (ex) {
     // If token verification fails, return an unauthorized error
-    return { success: false, error: "not authorized" };
+    return { success: false, error: "Not authorized" };
   }
 
-  // Query the database to find the user by ID, including the role
+  // Query the database for the user by ID
   const SQL = `
     SELECT id, username, email, role
     FROM users
@@ -109,23 +117,28 @@ const findUserWithToken = async (token) => {
   `;
   const response = await client.query(SQL, [id]);
 
-  // If no user is found with the ID, return an unauthorized error
+  // If no user is found, return an unauthorized error
   if (!response.rows.length) {
-    return { success: false, error: "not authorized" };
+    return { success: false, error: "Not authorized" };
   }
 
-  // Return user details including userId and role
+  // Return the user's details
   return {
     success: true,
     user: {
       id: response.rows[0].id,
       username: response.rows[0].username,
       email: response.rows[0].email,
-      role: response.rows[0].role, // Include role in the returned user object
+      role: response.rows[0].role,
     },
   };
 };
 
+/**
+ * Fetch the user's info based on their ID.
+ * @param {number} user_id - The user's ID.
+ * @returns {Object} - The user's information (username, email).
+ */
 const getUserInfo = async (user_id) => {
   const { rows } = await client.query(
     `SELECT id, username, email
@@ -134,13 +147,20 @@ const getUserInfo = async (user_id) => {
     [user_id]
   );
 
-  return rows[0]; // Return the user object or undefined if not found
+  return rows[0]; // Return the user's info
 };
 
+/**
+ * Update a user's information (username, email, password).
+ * @param {number} user_id - The ID of the user to update.
+ * @param {Object} data - The updated user data (username, email, password).
+ * @returns {Object} - The updated user details.
+ */
 const updateUserInfo = async (user_id, { username, email, password }) => {
   const updates = [];
   const values = [];
 
+  // Check and prepare update fields
   if (username) {
     updates.push(`username = $${updates.length + 1}`);
     values.push(username);
@@ -152,16 +172,18 @@ const updateUserInfo = async (user_id, { username, email, password }) => {
   }
 
   if (password) {
+    // Hash the new password before updating
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     updates.push(`password = $${updates.length + 1}`);
     values.push(hashedPassword);
   }
 
-  // If no updates, return early
+  // If no fields to update, return null
   if (updates.length === 0) {
     return null; // No fields to update
   }
 
+  // Execute the update query
   const result = await client.query(
     `UPDATE users
      SET ${updates.join(", ")}, updated_at = CURRENT_TIMESTAMP
@@ -174,8 +196,8 @@ const updateUserInfo = async (user_id, { username, email, password }) => {
 };
 
 /**
- * Get all users from the database.
- * @returns {object} - Result of the operation, including success status and an array of users or error message.
+ * Fetch all users from the database.
+ * @returns {Object} - The list of all users.
  */
 const getUsers = async () => {
   try {
@@ -185,15 +207,15 @@ const getUsers = async () => {
       FROM users
       ORDER BY created_at DESC;
     `);
-    // Return success status and the list of users
+    // Return the list of users
     return { success: true, users: rows };
   } catch (error) {
     console.error("ERROR FETCHING USERS: ", error);
-    // Return error information if fetching fails
     return { success: false, error: error.message };
   }
 };
 
+// Export the functions to be used in other modules
 module.exports = {
   createUser,
   authenticate,

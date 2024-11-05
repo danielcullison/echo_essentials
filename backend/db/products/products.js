@@ -1,31 +1,27 @@
+// Importing the database client to interact with PostgreSQL
 const client = require("../client.js");
 
 /**
  * Create a new product in the database.
  * @param {string} name - The name of the product.
- * @param {string} description - The description of the product.
+ * @param {string} description - A description of the product.
  * @param {number} price - The price of the product.
- * @param {number} category_id - The category ID of the product.
- * @param {string} image_url - The image URL of the product.
- * @returns {object} - Result of the operation, indicating success and the created product or error message.
+ * @param {number} category_id - The category ID the product belongs to.
+ * @param {string} image_url - The URL of the product's image.
+ * @returns {Object} - The result of the operation (success or error) and the created product's details.
  */
-const createProduct = async (
-  name,
-  description,
-  price,
-  category_id,
-  image_url
-) => {
+const createProduct = async (name, description, price, category_id, image_url) => {
   try {
-    // Insert the new product into the products table
+    // Insert a new product into the products table
     const { rows } = await client.query(
       `
       INSERT INTO products (name, description, price, category_id, image_url) 
       VALUES ($1, $2, $3, $4, $5) RETURNING id, name, description, price, category_id, image_url, created_at, updated_at;
       `,
-      [name, description, price, category_id, image_url]
+      [name, description, price, category_id, image_url] // Values for query placeholders
     );
-    // Return success status and the created product details
+
+    // Return the created product details if successful
     return { success: true, product: rows[0] };
   } catch (error) {
     console.error("ERROR CREATING PRODUCT: ", error);
@@ -35,8 +31,8 @@ const createProduct = async (
 };
 
 /**
- * Get all products from the database.
- * @returns {object} - Result of the operation, including success status and an array of products or error message.
+ * Fetch all products from the database.
+ * @returns {Object} - The result of the operation (success or error) and the list of products.
  */
 const getProducts = async () => {
   try {
@@ -45,19 +41,20 @@ const getProducts = async () => {
       SELECT * FROM products
       ORDER BY created_at DESC;
     `);
-    // Return success status and the list of products
+
+    // Return the list of products if successful
     return { success: true, products: rows };
   } catch (error) {
     console.error("ERROR FETCHING PRODUCTS: ", error);
-    // Return error information if fetching fails
+    // Return error information if the operation fails
     return { success: false, error: error.message };
   }
 };
 
 /**
- * Get a single product by ID from the database.
- * @param {number} product_id - The ID of the product to retrieve.
- * @returns {object} - Result of the operation, including success status and the product or error message.
+ * Fetch a single product by its ID.
+ * @param {number} product_id - The ID of the product to fetch.
+ * @returns {Object} - The result of the operation (success or error) and the found product.
  */
 const getSingleProduct = async (product_id) => {
   try {
@@ -67,7 +64,7 @@ const getSingleProduct = async (product_id) => {
       SELECT * FROM products
       WHERE id = $1;
       `,
-      [product_id]
+      [product_id] // Query parameter
     );
 
     // If no product is found, return an error message
@@ -76,11 +73,11 @@ const getSingleProduct = async (product_id) => {
       return { success: false, error: "Item not found" };
     }
 
-    // Return success status and the found product
+    // Return the found product if successful
     return { success: true, item: rows[0] };
   } catch (error) {
     console.error("ERROR FETCHING PRODUCT: ", error);
-    // Return error information if fetching fails
+    // Return error information if the operation fails
     return { success: false, error: error.message };
   }
 };
@@ -88,15 +85,16 @@ const getSingleProduct = async (product_id) => {
 /**
  * Update an existing product in the database.
  * @param {number} product_id - The ID of the product to update.
- * @param {object} data - The product data to update, which can include name, description, price, category_id, and image_url.
- * @returns {object} - Result of the operation, indicating success and the updated product or error message.
+ * @param {Object} data - An object containing the fields to update (e.g., name, description, price).
+ * @returns {Object} - The result of the operation (success or error) and the updated product.
  */
 const updateProduct = async (product_id, data) => {
   try {
-    // Build the update query dynamically based on provided fields
+    // Initialize arrays for dynamically building the query
     const fields = [];
     const values = [];
 
+    // Check and add fields to be updated
     if (data.name) {
       fields.push(`name = $${fields.length + 1}`);
       values.push(data.name);
@@ -107,7 +105,7 @@ const updateProduct = async (product_id, data) => {
     }
     if (data.price) {
       if (data.price <= 0) {
-        return { success: false, error: "Price must be a positive number." }; // Validation for price
+        return { success: false, error: "Price must be a positive number." };
       }
       fields.push(`price = $${fields.length + 1}`);
       values.push(data.price);
@@ -121,9 +119,9 @@ const updateProduct = async (product_id, data) => {
       values.push(data.image_url);
     }
 
-    // Ensure at least one field is being updated
+    // Ensure at least one field is provided for updating
     if (fields.length === 0) {
-      return { success: false, error: "No fields to update." }; // Respond if no fields are provided
+      return { success: false, error: "No fields to update." };
     }
 
     // Create the SQL update query
@@ -133,17 +131,17 @@ const updateProduct = async (product_id, data) => {
       WHERE id = $${fields.length + 1} 
       RETURNING id, name, description, price, category_id, image_url, created_at, updated_at;
     `;
-    values.push(product_id); // Add product ID to the values for the query
+    values.push(product_id); // Add product ID to the query values
 
     // Execute the update query
     const { rows } = await client.query(query, values);
 
-    // If no rows are returned, the product was not found
+    // If no rows are returned, the product wasn't found
     if (rows.length === 0) {
       return { success: false, error: "Product not found." };
     }
 
-    // Return success status and the updated product details
+    // Return the updated product details if successful
     return { success: true, product: rows[0] };
   } catch (error) {
     console.error("ERROR UPDATING PRODUCT: ", error);
@@ -155,7 +153,7 @@ const updateProduct = async (product_id, data) => {
 /**
  * Delete a product from the database.
  * @param {number} product_id - The ID of the product to delete.
- * @returns {object} - Result of the operation, indicating success or error message.
+ * @returns {Object} - The result of the operation (success or error).
  */
 const deleteProduct = async (product_id) => {
   try {
@@ -165,15 +163,15 @@ const deleteProduct = async (product_id) => {
       DELETE FROM products 
       WHERE id = $1;
       `,
-      [product_id]
+      [product_id] // Query parameter
     );
 
-    // Check if any rows were affected (product was found and deleted)
+    // Check if any rows were affected (product was deleted)
     if (rowCount === 0) {
       return { success: false, error: "Product not found." }; // Return error if product not found
     }
 
-    // Return success status
+    // Return success status if the product was deleted
     return { success: true };
   } catch (error) {
     console.error("ERROR DELETING PRODUCT: ", error);
@@ -182,7 +180,7 @@ const deleteProduct = async (product_id) => {
   }
 };
 
-// Export the functions to be used in other modules
+// Export the functions for use in other modules
 module.exports = {
   createProduct,
   getProducts,

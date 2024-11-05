@@ -7,13 +7,18 @@
   justify-content: center;
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, #DCDCDC, #A9A9A9); /* Gradient background */
-  height: 100vh; 
+  background-image: url("../assets/landing_page.png");
+  background-size: cover; /* Ensure the background image covers the container */
+  background-position: center bottom; /* Keeps the bottom of the image in view */
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Ensure the container is at least 100vh */
+  height: auto; /* Allow the height to grow if needed */
   width: 100%;
   font-family: "Orbitron", sans-serif;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
+
 
 @keyframes titleAnimation {
   0% {
