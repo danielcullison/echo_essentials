@@ -9,10 +9,22 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
   const { username, password, email } = req.body; // Destructure user data from request body
   try {
-    const user = await createUser(username, password, email); // Create a new user
-    res.status(201).json(user); // Return created user with status 201
+    const result = await createUser(username, password, email); // Create a new user
+
+    if (!result.success) {
+      // If the user creation failed (e.g., duplicate username or email)
+      return res.status(400).json({ error: result.error }); // Return error with 400 status
+    }
+
+    // If user is created successfully
+    res.status(201).json({
+      message: 'User created successfully!',
+      user: result.user, // You can return the created user data if needed
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message }); // Handle errors with a relevant message
+    // General error handling (for unexpected errors)
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'An unexpected error occurred. Please try again later.' });
   }
 });
 

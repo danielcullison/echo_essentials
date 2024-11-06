@@ -1,100 +1,116 @@
-/* Products.css */
+/* Ensure the body takes up the full width and height of the page */
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  background-color: #DCDCDC; /* Set a grey background for the entire page */
+  font-family: "Orbitron", sans-serif; /* Use Orbitron font for a consistent look */
+}
 
+/* Container for the list of products */
 .products-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #DCDCDC; /* Light background for the product list */
-  min-height: 100vh;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  font-family: "Orbitron", sans-serif;
-}
-
-.products-title {
-  font-size: 3rem;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.products-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid layout */
-  gap: 20px; /* Space between cards */
-  width: 100%;
-  max-width: 1200px; /* Limit max width */
-}
-
-.products-card {
-  display: flex; /* Enable flexbox */
+  display: flex; /* Use Flexbox layout for easy alignment */
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items horizontally */
   justify-content: center; /* Center items vertically */
-  background: #fff; /* Card background */
+  padding: 20px; /* Add padding around the content */
+  background-color: #DCDCDC; /* Light grey background for the product list */
+  min-height: 100vh; /* Ensure the container takes up the full height of the viewport */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a shadow around the container for depth */
+  width: 100%; /* Ensure the container takes up the full width */
+}
+
+/* Title for the product list */
+.products-title {
+  font-size: 3rem; /* Large font size for the title */
+  color: #333; /* Dark text for better contrast */
+  margin-bottom: 20px; /* Space below the title */
+}
+
+/* Product list container, using a responsive grid layout */
+.products-list {
+  display: grid; /* Use CSS Grid layout */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Create a responsive grid with flexible columns */
+  gap: 20px; /* Space between individual product cards */
+  width: 100%; /* Ensure the list takes up the full width of the page */
+  max-width: 1200px; /* Limit the maximum width of the grid */
+}
+
+/* Individual product card styling */
+.products-card {
+  display: flex; /* Use Flexbox for aligning elements within the card */
+  flex-direction: column; /* Stack items vertically within the card */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  background: #fff; /* White background for the card */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-  overflow: hidden; /* Prevent overflow */
-  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
-  padding: 20px; /* Add padding inside the card */
+  overflow: hidden; /* Prevent content from overflowing the card */
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+  padding: 20px; /* Padding inside the card for spacing */
 }
 
+/* Styling for links inside the product card */
 .products-card a {
   text-decoration: none; /* Remove underline from links */
-  color: #333; /* Link color */
+  color: #333; /* Set link color to dark for visibility */
 }
 
+/* Hover effects for the product card */
 .products-card:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  transform: translateY(-5px); /* Lift the card slightly on hover */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Enhance the shadow effect on hover */
 }
 
+/* Hover effect for links inside product card */
 .products-card:hover a {
-  text-decoration: underline; /* Underline link on hover */
+  text-decoration: underline; /* Underline the link text on hover for interactivity */
 }
 
+/* Styling for product image inside the product card */
 .products-image {
-  width: 100%; /* Responsive image */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%; /* Ensure the image takes up the full width of the card */
+  height: auto; /* Maintain the aspect ratio of the image */
 }
 
+/* Product name text styling */
 .products-name {
-  font-size: 1.5rem; /* Product title size */
-  color: #333;
-  margin: 10px 0; /* Vertical margin */
-  text-align: center; /* Center text */
+  font-size: 1.5rem; /* Medium font size for product name */
+  color: #333; /* Dark text color for good contrast */
+  margin: 10px 0; /* Vertical margin for spacing */
+  text-align: center; /* Center the product name */
 }
 
+/* Product price styling */
 .products-price {
-  font-size: 1.2rem; /* Price size */
-  color: #555;
-  margin: 10px 0; /* Vertical margin */
-  text-align: center; /* Center text */
+  font-size: 1.2rem; /* Slightly smaller font size for product price */
+  color: #555; /* Lighter text color for price */
+  margin: 10px 0; /* Vertical margin for spacing */
+  text-align: center; /* Center the price text */
 }
 
+/* Add to Cart button styling */
 .products-add-to-cart {
-  padding: 10px 20px; /* Button padding */
-  font-size: 1rem; /* Button font size */
-  color: #fff; /* Button text color */
-  background-color: #333; /* Button color */
-  border: none; /* Remove default border */
-  border-radius: 30px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
-  margin-top: 10px; /* Space above button */
-  font-family: "Orbitron", sans-serif;}
+  padding: 10px 20px; /* Comfortable padding for the button */
+  font-size: 1rem; /* Standard button font size */
+  color: #fff; /* White text color for the button */
+  background-color: #333; /* Dark background color for the button */
+  border: none; /* Remove the default border */
+  border-radius: 30px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover to indicate interactivity */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+  margin-top: 10px; /* Space above the button */
+}
 
+/* Hover and focus effects for the Add to Cart button */
 .products-add-to-cart:hover,
 .products-add-to-cart:focus {
-  background-color: #555; /* Lighter shade on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #555; /* Lighter background color on hover or focus */
+  transform: scale(1.05); /* Slightly enlarge the button on hover or focus */
 }
 
+/* Loading and error message styling */
 .products-loading, .products-error {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-top: 20px;
+  text-align: center; /* Center the text for loading and error messages */
+  font-size: 1.5rem; /* Larger font size for visibility */
+  margin-top: 20px; /* Space above the messages */
 }
-
-
-

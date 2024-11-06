@@ -1,68 +1,74 @@
+/* Importing multiple font families to use throughout the site */
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Gowun+Dodum&family=Orbitron:wght@400..900&family=Prata&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
+/* Main container for the homepage with a background image */
 .home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  background-image: url("../assets/landing_page.png");
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
+  text-align: center; /* Center-align text */
+  padding: 20px; /* Padding around the content */
+  background-image: url("../assets/landing_page.png"); /* Background image for the container */
   background-size: cover; /* Ensure the background image covers the container */
   background-position: center bottom; /* Keeps the bottom of the image in view */
-  background-repeat: no-repeat;
-  min-height: 100vh; /* Ensure the container is at least 100vh */
-  height: auto; /* Allow the height to grow if needed */
-  width: 100%;
-  font-family: "Orbitron", sans-serif;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  transition: background-color 0.3s ease;
+  background-repeat: no-repeat; /* Prevent background image repetition */
+  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
+  height: auto; /* Allow height to grow if necessary (content overflow) */
+  width: 100%; /* Full width for the container */
+  font-family: "Orbitron", sans-serif; /* Apply the Orbitron font */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for the container */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
-
+/* Keyframe animation for the homepage title to appear with scaling effect */
 @keyframes titleAnimation {
   0% {
-    opacity: 0;
-    transform: scale(0.8);
+    opacity: 0; /* Start with invisible title */
+    transform: scale(0.8); /* Start with the title scaled down */
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
+    opacity: 1; /* Fade in the title */
+    transform: scale(1); /* Scale the title back to normal size */
   }
 }
 
+/* Styling for the homepage title */
 .home-title {
-  font-size: 5.5rem; 
-  margin: -50px 0 20px; 
-  color: #333; 
-  animation: titleAnimation 1s ease forwards; 
+  font-size: 5.5rem; /* Large font size for the title */
+  margin: -50px 0 20px; /* Negative margin at the top to pull the title up, margin at the bottom */
+  color: #333; /* Dark color for text */
+  animation: titleAnimation 1s ease forwards; /* Apply title animation */
 }
 
+/* Button to encourage the user to shop now, styled with padding, colors, and hover effect */
 .shop-now {
-  padding: 10px 20px; 
-  font-size: 1.2rem; 
-  font-family: "Orbitron", sans-serif;
-  color: #fff; 
-  background-color: #333; 
-  border: none; 
-  border-radius: 30px; 
-  cursor: pointer; 
-  transition: background-color 0.3s, transform 0.3s; 
+  padding: 10px 20px; /* Padding around the button */
+  font-size: 1.2rem; /* Font size for button text */
+  font-family: "Orbitron", sans-serif; /* Use Orbitron font */
+  color: #fff; /* White text color */
+  background-color: #333; /* Dark background for the button */
+  border: none; /* Remove the border */
+  border-radius: 30px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions for background color and scale effect */
 }
 
+/* Hover and focus states for the 'Shop Now' button */
 .shop-now:hover,
 .shop-now:focus {
-  background-color: #555; 
-  transform: scale(1.05); 
+  background-color: #555; /* Lighter background color on hover/focus */
+  transform: scale(1.05); /* Slightly increase the button size on hover/focus */
 }
 
-/* Responsive design */
+/* Responsive design: Adjustments for screens smaller than 768px (e.g., tablets, phones) */
 @media (max-width: 768px) {
   .home-title {
-    font-size: 3.5rem; /* Smaller font size for mobile */
+    font-size: 3.5rem; /* Smaller font size for mobile devices */
   }
+
   .shop-now {
-    padding: 8px 16px; /* Adjust padding for smaller screens */
-    font-size: 1rem; /* Smaller button font size */
+    padding: 8px 16px; /* Smaller padding for smaller screens */
+    font-size: 1rem; /* Smaller button font size for mobile */
   }
 }

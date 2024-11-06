@@ -5,29 +5,33 @@ import accountIcon from "../assets/accountIcon.png";
 import searchIcon from "../assets/searchIcon.png";
 import cartIcon from "../assets/cartIcon.png";
 import "../styles/Navbar.css";
-import { useAuth } from "../context/AuthContext"; // Import your AuthContext
+import { useAuth } from "../context/AuthContext"; // Import your AuthContext for user authentication
 
 const Navbar = () => {
-  const { logout, user } = useAuth(); // Destructure logout and user from context
-  const [isUserMenuOpen, setUserMenuOpen] = useState(false);
-  const [isSearchBarVisible, setSearchBarVisible] = useState(false);
-  const navigate = useNavigate();
+  const { logout, user } = useAuth(); // Destructure logout function and user object from context
+  const [isUserMenuOpen, setUserMenuOpen] = useState(false); // Track whether the user menu is open
+  const [isSearchBarVisible, setSearchBarVisible] = useState(false); // Track visibility of search bar
+  const navigate = useNavigate(); // Hook to navigate to different routes
 
+  // Toggle the visibility of the user menu
   const toggleUserMenu = () => {
-    setUserMenuOpen((prev) => !prev);
-    if (isSearchBarVisible) setSearchBarVisible(false);
+    setUserMenuOpen((prev) => !prev); // Toggle user menu state
+    if (isSearchBarVisible) setSearchBarVisible(false); // Close the search bar if it's open
   };
 
+  // Toggle the visibility of the search bar
   const toggleSearchBar = () => {
-    setSearchBarVisible((prev) => !prev);
-    if (isUserMenuOpen) setUserMenuOpen(false);
+    setSearchBarVisible((prev) => !prev); // Toggle search bar state
+    if (isUserMenuOpen) setUserMenuOpen(false); // Close the user menu if it's open
   };
 
+  // Handle logout functionality
   const handleLogout = () => {
-    logout();
-    navigate("/");
+    logout(); // Call logout function from context
+    navigate("/"); // Redirect to homepage after logout
   };
 
+  // Close user menu or search bar if user clicks outside of them
   useEffect(() => {
     const handleClickOutside = (event) => {
       const userMenu = document.querySelector(".user-account-menu");
@@ -35,6 +39,7 @@ const Navbar = () => {
       const accountIconElement = document.querySelector(".account-icon");
       const searchIconElement = document.querySelector(".search-icon");
 
+      // Close user menu if click is outside the menu or account icon
       if (
         userMenu &&
         !userMenu.contains(event.target) &&
@@ -44,6 +49,7 @@ const Navbar = () => {
         setUserMenuOpen(false);
       }
 
+      // Close search bar if click is outside the search bar or search icon
       if (
         searchBar &&
         !searchBar.contains(event.target) &&
@@ -54,17 +60,20 @@ const Navbar = () => {
       }
     };
 
+    // Add event listener for detecting outside clicks
     document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup event listener when component is unmounted
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isUserMenuOpen, isSearchBarVisible]);
+  }, [isUserMenuOpen, isSearchBarVisible]); // Re-run effect when user menu or search bar state changes
 
   return (
     <nav className="navbar">
       <div className="logo">
         <Link to="/">
-          <img className="logo" src={echoEssentialsLogo} alt="logo" />
+          <img className="logo" src={echoEssentialsLogo} alt="Echo Essentials Logo" />
         </Link>
       </div>
       <ul className="nav-links">
@@ -78,20 +87,20 @@ const Navbar = () => {
           <img
             className="search-icon"
             src={searchIcon}
-            alt="search icon"
+            alt="Search Icon"
             onClick={toggleSearchBar}
           />
         </li>
         <li>
           <Link to="/cart">
-            <img className="cart-icon" src={cartIcon} alt="cart icon" />
+            <img className="cart-icon" src={cartIcon} alt="Cart Icon" />
           </Link>
         </li>
         <li>
           <img
             className="account-icon"
             src={accountIcon}
-            alt="account icon"
+            alt="Account Icon"
             onClick={toggleUserMenu}
           />
         </li>
@@ -102,21 +111,18 @@ const Navbar = () => {
       {isUserMenuOpen && (
         <div className={`user-account-menu active`}>
           <ul>
+            {/* Links for user authentication actions */}
             <Link to="/signup">
               <li>Sign Up</li>
             </Link>
             <Link to="/login">
               <li>Login</li>
             </Link>
-            {user && user.role === "admin" ? ( // Check if user is admin
-              <>
-                {console.log("User role:", user.role)} {/* Debugging line */}
-                <Link to="/admin">
-                  <li>Admin</li>
-                </Link>
-              </>
-            ) : (
-              console.log("User is not admin or user is null") // Debugging line
+            {user && user.role === "admin" && (
+              // Show admin link if the user is an admin
+              <Link to="/admin">
+                <li>Admin</li>
+              </Link>
             )}
             <li onClick={handleLogout}>Logout</li>
           </ul>

@@ -1,80 +1,91 @@
 /* SignUp.css */
 
+/* Container for the entire SignUp page */
 .signup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    background-color: #DCDCDC; /* Light background to match the app */
-    min-height: 100vh; /* Full height */
-    font-family: "Orbitron", sans-serif; /* Consistent font */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: flex; /* Use flexbox layout for easy alignment */
+    flex-direction: column; /* Stack the elements vertically */
+    align-items: center; /* Horizontally center the items */
+    justify-content: center; /* Vertically center the items */
+    padding: 0; /* No extra padding */
+    background-color: #DCDCDC; /* Light grey background for consistency with the app theme */
+    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+    font-family: "Orbitron", sans-serif; /* Consistent font across the page */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to create depth */
 }
 
+/* Styling for the SignUp page title */
 .signup-title {
-    font-size: 3rem; /* Large title size */
-    color: #333; /* Dark text color */
-    margin-bottom: 30px; /* Space below the title */
+    font-size: 3rem; /* Large font size for the title */
+    color: #333; /* Dark text color for contrast */
+    margin-bottom: 30px; /* Space below the title to separate from the form */
 }
 
+/* Form container for the SignUp form elements */
 .signup-form {
-    display: flex;
+    display: flex; /* Use flexbox layout for the form */
     flex-direction: column; /* Stack form elements vertically */
-    width: 100%; /* Full width */
-    max-width: 400px; /* Limit max width */
+    width: 100%; /* Ensure the form takes up full width */
+    max-width: 400px; /* Limit the maximum width of the form */
 }
 
+/* Grouping of individual input elements within the form */
 .signup-input-group {
-    margin-bottom: 20px; /* Space between input groups */
+    margin-bottom: 20px; /* Space between input fields */
 }
 
+/* Styling for the labels associated with the inputs */
 .signup-label {
     font-size: 1.2rem; /* Label font size */
-    color: #333; /* Dark text color */
-    margin-bottom: 5px; /* Space below label */
+    color: #333; /* Dark text color for readability */
+    margin-bottom: 5px; /* Small space below the label for separation */
 }
 
+/* Styling for the input fields in the SignUp form */
 .signup-input {
-    padding: 12px; /* Padding inside input */
-    font-size: 1rem; /* Input font size */
-    border: 2px solid #ddd; /* Light border */
-    border-radius: 10px; /* Rounded corners */
-    width: 100%; /* Full width */
-    transition: border-color 0.3s ease; /* Smooth border transition */
+    padding: 12px; /* Add padding inside the input fields */
+    font-size: 1rem; /* Standard input font size */
+    border: 2px solid #ddd; /* Light border color for the default state */
+    border-radius: 10px; /* Rounded corners for the input field */
+    width: 100%; /* Ensure the input field takes full width of the form */
+    transition: border-color 0.3s ease; /* Smooth transition for border color change */
 }
 
+/* Focus state for the input fields */
 .signup-input:focus {
-    outline: none; /* Remove default outline */
-    border-color: #007bff; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add shadow on focus */
+    outline: none; /* Remove the default browser outline when focused */
+    border-color: #555; /* Change the border color to dark grey when focused */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a shadow effect to highlight the input */
 }
 
+/* Styling for error messages */
 .signup-error {
-    color: #d9534f; /* Bootstrap danger color */
-    font-size: 1rem; /* Error message size */
-    margin-top: 10px; /* Space above error message */
+    color: #333; /* Dark text color for error messages */
+    font-size: 1rem; /* Standard font size for error text */
+    margin-top: 10px; /* Space above the error message */
 }
 
+/* Styling for success messages */
 .signup-success {
-    color: #5cb85c; /* Bootstrap success color */
-    font-size: 1rem; /* Success message size */
-    margin-top: 10px; /* Space above success message */
+    color: #333; /* Dark text color for success messages */
+    font-size: 1rem; /* Standard font size for success text */
+    margin-top: 10px; /* Space above the success message */
 }
 
+/* Styling for the SignUp button */
 .signup-button {
-    padding: 12px; /* Button padding */
+    padding: 12px; /* Button padding for a comfortable click area */
     font-size: 1.2rem; /* Button font size */
-    color: #fff; /* White text */
-    background-color: #333; /* Dark background */
-    border: none; /* Remove border */
-    border-radius: 30px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-    font-family: "Orbitron", sans-serif;
+    color: #fff; /* White text on the button */
+    background-color: #333; /* Dark background color for the button */
+    border: none; /* Remove the default border */
+    border-radius: 30px; /* Rounded corners for the button */
+    cursor: pointer; /* Pointer cursor on hover to indicate interactivity */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for color change and scaling effect */
+    font-family: "Orbitron", sans-serif; /* Consistent font for the button */
 }
 
+/* Hover effect for the SignUp button */
 .signup-button:hover {
-    background-color: #555; /* Lighter shade on hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+    background-color: #555; /* Lighter shade on hover for a visual indication */
+    transform: scale(1.05); /* Slightly enlarge the button on hover for feedback */
 }

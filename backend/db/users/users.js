@@ -6,14 +6,6 @@ const jwt = require("jsonwebtoken");
 const SALT_ROUNDS = 10; // Salt rounds for bcrypt hashing
 const JWT_SECRET = process.env.JWT || "shhh"; // JWT secret for token generation
 
-/**
- * Create a new user in the database.
- * @param {string} username - The user's username.
- * @param {string} password - The user's password.
- * @param {string} email - The user's email address.
- * @param {string} role - The user's role (default is "user").
- * @returns {Object} - The result of the operation (success or error) and the created user.
- */
 const createUser = async (username, password, email, role = "user") => {
   try {
     // Ensure all required fields are provided
@@ -37,7 +29,24 @@ const createUser = async (username, password, email, role = "user") => {
     return { success: true, user: rows[0] };
   } catch (error) {
     console.error("ERROR CREATING USER: ", error);
-    return { success: false, error: error.message };
+
+    // Check for duplicate key error (PostgreSQL unique constraint violation)
+    if (error.code === '23505') {
+      const detail = error.detail || '';
+
+      // Check for username uniqueness violation
+      if (detail.includes('Key (username)')) {
+        return { success: false, error: 'Username already exists. Please choose a different username.' };
+      }
+
+      // Check for email uniqueness violation
+      if (detail.includes('Key (email)')) {
+        return { success: false, error: 'Email is already in use. Please use a different email address.' };
+      }
+    }
+
+    // Generic error handling for any other errors
+    return { success: false, error: 'An unexpected error occurred while creating the user.' };
   }
 };
 

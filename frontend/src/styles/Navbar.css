@@ -1,152 +1,176 @@
+/* Importing fonts from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Gowun+Dodum&family=Orbitron:wght@400..900&family=Prata&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
+/* Navbar styling */
 .navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  width: 100%;
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Distribute items evenly with space in between */
+  padding: 0 20px; /* Padding on left and right for spacing */
+  width: 100%; /* Full width */
   background-color: #ffffff; /* Soft white background */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease; /* Smooth background transition */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease; /* Smooth background transition when hovering */
 }
 
+/* Hover effect for navbar background */
 .navbar:hover {
   background-color: rgba(255, 255, 255, 0.98); /* Slight darkening on hover */
 }
 
+/* Logo styling */
 .logo img {
-  width: 200px;
-  height: auto;
+  width: 200px; /* Set the width of the logo */
+  height: auto; /* Auto adjust height to maintain aspect ratio */
 }
 
+/* Navigation links container */
 .nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  justify-content: space-around;
-  gap: 15px; /* More spacing for a cleaner look */
-  flex-grow: 1;
+  list-style: none; /* Remove default list styles */
+  display: flex; /* Use flexbox to align the links horizontally */
+  align-items: center; /* Vertically center the links */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  justify-content: space-around; /* Evenly space out the links */
+  gap: 15px; /* Add extra gap between items */
+  flex-grow: 1; /* Allow the nav links to grow and fill space */
 }
 
+/* Individual navigation link styling */
 .nav-links li {
-  cursor: pointer;
-  text-align: center;
-  line-height: 1;
-  font-family: "Orbitron", sans-serif;
-  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center align the text */
+  line-height: 1; /* Set line-height to 1 for better alignment */
+  font-family: "Orbitron", sans-serif; /* Set custom font */
+  transition: color 0.3s ease, transform 0.3s ease; /* Transition for hover color and transform effect */
 }
 
+/* Navigation link styles */
 .nav-links li a {
-  color: #333; /* Set link color to match the nav link color */
-  text-decoration: none; /* Remove underline */
-  transition: color 0.3s ease; /* Transition for color change */
+  color: #333; /* Default text color for links */
+  text-decoration: none; /* Remove underline from links */
+  transition: color 0.3s ease; /* Smooth transition for color change */
 }
 
+/* Hover effect for navigation link color */
 .nav-links li a:hover {
-  color: #555; /* Change color on hover if desired */
+  color: #555; /* Change color slightly on hover */
 }
 
+/* Hover effect for the navigation list item */
 .nav-links li:hover {
-  transform: translateY(-2px); /* Subtle lift effect */
+  transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
+/* Navigation icon styles */
 .nav-links img {
-  width: 24px; /* Slightly larger icons for better visibility */
-  height: 24px;
-  vertical-align: middle;
-  margin: 0 10px;
-  transition: transform 0.3s ease;
+  width: 24px; /* Set icon size */
+  height: 24px; /* Set icon size */
+  vertical-align: middle; /* Align the icons vertically with the text */
+  margin: 0 10px; /* Horizontal margin between icons */
+  transition: transform 0.3s ease; /* Smooth transition for scaling effect */
 }
 
+/* Hover effect for the navigation icons */
 .nav-links img:hover {
   transform: scale(1.2); /* Slightly increase icon size on hover */
 }
 
+/* Logo container styling */
 .logo {
-  margin-left: 20px;
-  display: flex; /* Ensure the logo is treated as a flex item */
-  align-items: center; /* Center align the logo vertically */
+  margin-left: 20px; /* Margin to the left of the logo */
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center align the logo */
 }
 
+/* Search bar container */
 .search-bar {
-  display: none;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 80px;
-  z-index: 999;
-  transition: opacity 0.3s ease; }
+  display: none; /* Hidden by default */
+  position: absolute; /* Position it absolutely relative to the navbar */
+  left: 50%; /* Center the search bar horizontally */
+  transform: translateX(-50%); /* Adjust for perfect centering */
+  margin-top: 80px; /* Add some space between navbar and search bar */
+  z-index: 999; /* Ensure it's on top of other elements */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
 
+/* Active state of search bar (visible) */
 .search-bar.active {
-  display: flex;
-  justify-content: center;
+  display: flex; /* Display search bar when active */
+  justify-content: center; /* Center the input inside the search bar */
 }
 
+/* Search bar input field styling */
 .search-bar input {
-  padding: 12px;
-  border: 2px solid #ddd; 
-  border-radius: 30px;
-  width: 300px;
-  font-family: "Orbitron", sans-serif;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 12px; /* Padding inside the input field */
+  border: 2px solid #ddd; /* Light grey border */
+  border-radius: 30px; /* Rounded corners */
+  width: 300px; /* Set a fixed width for the search input */
+  font-family: "Orbitron", sans-serif; /* Set custom font */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for focus effects */
 }
 
+/* Focus effect for search input */
 .search-bar input:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on focus */
 }
 
+/* User account menu container */
 .user-account-menu {
-  position: absolute;
-  top: 150px;
-  right: 50px;
-  background-color: white; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border-radius: 8px;
-  width: 120px; /* Slightly wider for more space */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: absolute; /* Position absolutely relative to navbar */
+  top: 150px; /* Vertical positioning from the top */
+  right: 50px; /* Horizontal positioning from the right */
+  background-color: white; /* White background for the menu */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  z-index: 1000; /* Ensure it's on top of other elements */
+  border-radius: 8px; /* Rounded corners for the menu */
+  width: 120px; /* Set a fixed width for the menu */
+  opacity: 0; /* Hidden by default */
+  visibility: hidden; /* Hidden by default */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for visibility */
 }
 
+/* Links inside the user account menu */
 .user-account-menu a {
-  text-decoration: none; /* Ensure links do not have underlines */
-  color: inherit; /* Ensure links inherit color from parent */
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit the color from the parent element */
 }
 
+/* Active state of user account menu (visible) */
 .user-account-menu.active {
-  opacity: 1;
-  visibility: visible;
+  opacity: 1; /* Make the menu visible */
+  visibility: visible; /* Set visibility to visible */
 }
 
+/* List styling inside the user account menu */
 .user-account-menu ul {
-  list-style: none;
-  padding: 10px;
-  margin: 0;
-  text-align: center;
-  font-family: "Orbitron", sans-serif;
+  list-style: none; /* Remove default list styling */
+  padding: 10px; /* Padding around the list */
+  margin: 0; /* Remove default margin */
+  text-align: center; /* Center align the list items */
+  font-family: "Orbitron", sans-serif; /* Custom font for the menu */
 }
 
+/* Individual list item styling inside the user account menu */
 .user-account-menu li {
-  padding: 10px 15px;
-  cursor: pointer; 
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 10px 15px; /* Padding around the list items */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
 }
 
+/* Links inside the list items */
 .user-account-menu li a {
-  color: inherit; /* Inherit color from the list item */
+  color: inherit; /* Inherit color from the parent item */
 }
 
-
+/* Hover effect for list items in the user account menu */
 .user-account-menu li:hover {
-  background-color: #f0f0f0; /* Light gray on hover */
-  text-decoration: none;
+  background-color: #f0f0f0; /* Light gray background on hover */
+  text-decoration: none; /* Remove underline on hover */
 }
 
+/* Prevent link underline on hover inside list items */
 .user-account-menu li:hover a {
-  text-decoration: none; /* Ensure no underline on hover */
+  text-decoration: none;
 }

@@ -1,99 +1,140 @@
+/* Importing Google font Orbitron for use in the project */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
+/* Body styling: 
+   - Ensures full width and height for the page. 
+   - Sets a grey background for the entire body. 
+   - Applies Orbitron font family globally. */
+body {
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  background-color: #DCDCDC; /* Grey background for the entire page */
+  font-family: "Orbitron", sans-serif; /* Consistent font across the page */
+  width: 100%; /* Full width for the body */
+  height: 100%; /* Full height for the body */
+}
+
+/* Admin container: 
+   - Flexbox layout to center content both vertically and horizontally.
+   - Full page height to ensure content is centered even if there's not much content. */
 .admin-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #DCDCDC; /* Light background */
-  min-height: 100vh; /* Full height */
-  font-family: "Orbitron", sans-serif;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Align child elements in a column */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  padding: 20px; /* Padding around the content */
+  background-color: #DCDCDC; /* Light background to match the body */
+  min-height: 100vh; /* Ensure the container takes at least full viewport height */
+  width: 100%; /* Full width for the container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow around the container */
 }
 
+/* Admin title: 
+   - Large font size for emphasis and proper spacing below. */
 .admin-title {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 20px; /* Space below title */
+  font-size: 2.5rem; /* Large font size for the title */
+  color: #333; /* Dark color for the title */
+  margin-bottom: 20px; /* Space below the title */
 }
 
+/* Styling for loading and error messages: 
+   - Centered text with a moderate font size for readability. */
 .admin-loading, .admin-error {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-top: 20px;
-  color: #555; /* Gray color for loading and error messages */
+  text-align: center; /* Center text horizontally */
+  font-size: 1.5rem; /* Medium font size */
+  margin-top: 20px; /* Margin from the previous content */
+  color: #555; /* Lighter gray color for non-emphasized text */
 }
 
+/* Admin product list and user list:
+   - Removes default list styling and applies padding and width control. */
 .admin-product-list, .admin-user-list {
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove padding */
-  width: 100%; /* Full width for the item list */
-  max-width: 600px; /* Limit max width */
-  margin: 20px 0; /* Space between sections */
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Removes extra padding */
+  width: 100%; /* Full width for the list */
+  max-width: 600px; /* Limit width to 600px for readability */
+  margin: 20px 0; /* Vertical space between sections */
 }
 
+/* Product item: 
+   - Styled as cards with white background, rounded corners, and subtle shadows. */
 .admin-product-item {
-  background: #fff; /* White background for items */
+  background: #fff; /* White background for list items */
   border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
-  margin: 10px 0; /* Vertical spacing between items */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  margin: 10px 0; /* Vertical space between items */
   padding: 15px; /* Padding inside each item */
-  display: flex; /* Flexbox for item layout */
-  justify-content: space-between; /* Space items evenly */
-  align-items: center; /* Center align items */
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-between; /* Distribute items with space between */
+  align-items: center; /* Align content vertically in the center */
 }
 
+/* Button inside product item: 
+   - Styled with padding, background color, and hover effects. */
 .admin-product-item button {
   padding: 5px 10px; /* Button padding */
-  font-size: 1rem; /* Button font size */
-  color: #fff; /* White text */
-  background-color: #333; /* Button color */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Smooth transition */
+  font-size: 1rem; /* Font size for the button */
+  color: #fff; /* White text for contrast */
+  background-color: #333; /* Dark background for the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
+/* Button hover effect:
+   - Changes background color to a lighter shade when hovered. */
 .admin-product-item button:hover {
-  background-color: #555; /* Lighter shade on hover */
+  background-color: #555; /* Lighter background on hover */
 }
 
+/* Input fields (text and number):
+   - Full-width with padding, margin, and border for a clean look. */
 input[type="text"], input[type="number"] {
-  width: 100%; /* Full width input */
-  padding: 10px; /* Padding inside input */
-  margin: 10px 0; /* Vertical margin */
+  width: 100%; /* Full width for inputs */
+  padding: 10px; /* Padding for input fields */
+  margin: 10px 0; /* Vertical space between input fields */
   border: 1px solid #ccc; /* Light border */
   border-radius: 5px; /* Rounded corners */
-  font-family: "Orbitron", sans-serif;
+  font-family: "Orbitron", sans-serif; /* Consistent font for inputs */
 }
 
+/* Input focus state: 
+   - Darker border on focus to indicate active field. */
 input[type="text"]:focus, input[type="number"]:focus {
-  border-color: #333; /* Darker border on focus */
+  border-color: #333; /* Darker border when focused */
 }
 
+/* General button styling:
+   - Buttons have consistent padding, font size, and color. */
 button {
   padding: 10px 20px; /* Button padding */
-  font-size: 1rem; /* Button font size */
-  color: #fff; /* Button text color */
-  background-color: #333; /* Button color */
-  border: none; /* Remove default border */
-  border-radius: 30px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Smooth transition */
+  font-size: 1rem; /* Font size */
+  color: #fff; /* White text color */
+  background-color: #333; /* Dark background for buttons */
+  border: none; /* No border */
+  border-radius: 30px; /* Fully rounded button corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition on hover */
 }
 
+/* Button hover effect: 
+   - Changes background color on hover for interactivity. */
 button:hover {
   background-color: #555; /* Lighter shade on hover */
 }
 
-/* Responsive design */
+/* Responsive design for smaller screens:
+   - Adjusts font size and layout for better mobile compatibility. */
 @media (max-width: 768px) {
+  /* Reduce font size for the title on smaller screens */
   .admin-title {
     font-size: 2rem; /* Smaller font size for mobile */
   }
+
+  /* Adjust the layout of product items for smaller screens */
   .admin-product-item {
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align items to the left */
+    flex-direction: column; /* Stack product item elements vertically */
+    align-items: flex-start; /* Align elements to the left */
   }
 }

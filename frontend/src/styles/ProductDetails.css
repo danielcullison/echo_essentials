@@ -1,96 +1,120 @@
-/* ProductDetails.css */
+/* Ensure the body takes up the full width and height of the page */
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  background-color: #DCDCDC; /* Light grey background for the whole page */
+  font-family: "Orbitron", sans-serif; /* Ensure consistent font across the page */
+}
 
+/* Product Details container - main wrapper for product details */
 .product-details-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background-color: #DCDCDC; /* Light background */
-  min-height: 100vh; /* Full height */
-  font-family: "Orbitron", sans-serif;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex; /* Use flexbox layout for easy alignment */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
+  padding: 20px; /* Padding around the content */
+  background-color: #DCDCDC; /* Light grey background */
+  min-height: 100vh; /* Ensure the container takes at least full height of the viewport */
+  width: 100%; /* Ensure it stretches the full width of the page */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow for depth and separation */
 }
 
+/* Back button styling */
 .product-details-back-button {
-  margin-bottom: 20px; /* Space below the button */
-  padding: 10px 20px; /* Button padding */
-  font-size: 1rem; /* Font size */
-  color: #fff; /* White text color */
-  background-color: #333; /* Dark background */
-  border: none; /* Remove border */
-  border-radius: 30px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Transition for hover effect */
-  font-family: "Orbitron", sans-serif;
+  margin-bottom: 20px; /* Add space below the button */
+  padding: 10px 20px; /* Button padding for comfort */
+  font-size: 1rem; /* Set font size for text inside button */
+  color: #fff; /* White text color for contrast */
+  background-color: #333; /* Dark background for the button */
+  border: none; /* Remove default border */
+  border-radius: 30px; /* Rounded corners for a modern look */
+  cursor: pointer; /* Pointer cursor to indicate interactivity */
+  transition: background-color 0.3s; /* Smooth transition effect for background color on hover */
+  font-family: "Orbitron", sans-serif; /* Consistent font */
 }
 
+/* Hover effect for back button */
 .product-details-back-button:hover {
-  background-color: #555; /* Lighter shade on hover */
+  background-color: #555; /* Lighter grey shade when hovered */
 }
 
+/* Product details content - container for image and info section */
 .product-details-content {
-  display: flex; /* Flexbox layout for image and info */
-  align-items: flex-start; /* Align items at the start */
-  gap: 20px; /* Space between image and info */
+  display: flex; /* Use flexbox for horizontal layout of image and info */
+  align-items: flex-start; /* Align image and info at the top */
+  gap: 20px; /* Space between image and info section */
 }
 
+/* Product image styling */
 .product-details-image {
   flex: 1; /* Allow the image to take available space */
 }
 
 .product-details-image-img {
-  width: 100%; /* Responsive image */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Rounded corners */
+  width: 100%; /* Make the image responsive to container width */
+  height: auto; /* Maintain the aspect ratio of the image */
+  border-radius: 10px; /* Rounded corners for the image */
 }
 
+/* Product info (name, price, description) container */
 .product-details-info {
-  flex: 2; /* Allow the info to take more space */
-  display: flex;
-  flex-direction: column; /* Stack info vertically */
-  align-items: flex-start; /* Align items to the left */
+  flex: 2; /* Allow the info section to take up more space than the image */
+  display: flex; /* Use flexbox to stack the product info vertically */
+  flex-direction: column; /* Stack the content vertically */
+  align-items: flex-start; /* Align the content to the left */
 }
 
+/* Product name styling */
 .product-details-name {
-  font-size: 2rem; /* Title size */
-  color: #333;
-  margin: 10px 0; /* Vertical margin */
+  font-size: 2rem; /* Larger font size for the product name */
+  color: #333; /* Dark color for better contrast */
+  margin: 10px 0; /* Vertical margin for spacing */
 }
 
+/* Product price styling */
 .product-details-price {
-  font-size: 1.5rem; /* Price size */
-  color: #555;
-  margin: 10px 0; /* Vertical margin */
+  font-size: 1.5rem; /* Slightly smaller font size for the price */
+  color: #555; /* Lighter color for the price text */
+  margin: 10px 0; /* Vertical margin for spacing */
 }
 
+/* Product description styling */
 .product-details-description {
-  font-size: 1rem; /* Description size */
-  color: #777; /* Slightly lighter color */
-  margin: 10px 0; /* Vertical margin */
+  font-size: 1rem; /* Standard font size for the description */
+  color: #777; /* Slightly lighter color for the description */
+  margin: 10px 0; /* Vertical margin for spacing */
 }
 
+/* Add to Cart button styling */
 .product-details-add-to-cart {
-  padding: 10px 20px; /* Button padding */
-  font-size: 1rem; /* Button font size */
-  color: #fff; /* White text */
-  background-color: #333; /* Button color */
-  border: none; /* Remove border */
-  border-radius: 30px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
-  margin-top: 10px; /* Space above button */
-  font-family: "Orbitron", sans-serif;
+  padding: 12px 24px; /* Adequate padding for a comfortable click area */
+  font-size: 1.2rem; /* Font size for the button text */
+  color: #fff; /* White text color for the button */
+  background-color: #333; /* Dark background color for the button */
+  border: none; /* Remove the default border */
+  border-radius: 30px; /* Rounded corners for the button */
+  cursor: pointer; /* Pointer cursor to indicate interactivity */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for background and scaling on hover */
+  margin-top: 15px; /* Space above the button */
+  font-family: "Orbitron", sans-serif; /* Consistent font for the button */
 }
 
-.product-details-add-to-cart:hover,
+/* Hover effect for Add to Cart button */
+.product-details-add-to-cart:hover {
+  background-color: #555; /* Lighter shade on hover for feedback */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Remove outline when the Add to Cart button is focused */
 .product-details-add-to-cart:focus {
-  background-color: #555; /* Lighter shade on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  outline: none; /* Remove the default focus outline */
 }
 
-.product-details-loading, .product-details-error {
-  text-align: center;
-  font-size: 1.5rem;
-  margin-top: 20px;
+/* Loading and error message styling */
+.product-details-loading,
+.product-details-error {
+  text-align: center; /* Center the text for loading and error messages */
+  font-size: 1.5rem; /* Larger font size for visibility */
+  margin-top: 20px; /* Space above the messages */
+  color: #555; /* Default text color for messages */
 }
