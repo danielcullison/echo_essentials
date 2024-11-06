@@ -175,7 +175,6 @@ const Cart = () => {
                 alt={item.product_name}
                 className="cart-item-image"
               />
-              <p className="cart-item-description">{item.description}</p>
               <p className="cart-item-price">Price: ${item.price}</p>
               
               {/* Input for changing the quantity */}
@@ -202,6 +201,13 @@ const Cart = () => {
             </li>
           ))}
         </ul>
+      )}
+
+      {/* Display the cart total */}
+      {cartItems.length > 0 && (
+        <div className="cart-total">
+          <h3>Total: ${calculateTotalAmount().toFixed(2)}</h3>
+        </div>
       )}
 
       {/* Checkout button */}

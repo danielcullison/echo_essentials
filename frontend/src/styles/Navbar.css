@@ -116,6 +116,33 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow on focus */
 }
 
+/* Search dropdown styling */
+.search-dropdown {
+  position: absolute;
+  top: 50px; /* Adjust to appear below the search input */
+  left: 0;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 1000;
+  max-height: 300px; /* Max height for dropdown */
+  overflow-y: auto; /* Scroll if too many results */
+  transition: max-height 0.3s ease;
+}
+
+.search-result {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search-result:hover {
+  background-color: #f9f9f9;
+}
+
 /* User account menu container */
 .user-account-menu {
   position: absolute; /* Position absolutely relative to navbar */

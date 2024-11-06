@@ -346,13 +346,6 @@ const init = async () => {
       "https://www.lyxpro.com/cdn/shop/files/LYXEGST39BL-Strat-Guitar-Blue-Product-Image-2.jpg?v=1684763288&width=1946"
     );
     await createProduct(
-      "Epiphone Flying V Electric Guitar",
-      "A recreation of the classic 1958 model, this Epiphone Flying V electric features clear ProBucker humbuckers and a stylish V-shaped string-thru tailpiece.",
-      649.99,
-      1,
-      "https://media.hears tapps.com/vader-prod.s3.amazonaws.com/1646350425-31KPaXe9JL._SL500_.jpg?width=600"
-    );
-    await createProduct(
       "Fender Stratocaster Electric Guitar",
       "The Squier® Affinity Series™ Stratocaster® is a fantastic entry point into the legendary Fender® family, offering iconic design and classic tone for today's aspiring guitarists. This model features several player-friendly enhancements, including a lightweight body and a slim C-shaped neck profile for added comfort. Its 2-point tremolo bridge ensures excellent tremolo action, while sealed die-cast tuning machines with split shafts provide smooth, precise tuning and effortless restringing. Equipped with three Squier single-coil Strat pickups and a 5-way switch, this guitar is versatile enough to suit any genre, making it perfect for players at any level.",
       249.99,
@@ -367,28 +360,6 @@ const init = async () => {
       1,
       "https://m.media-amazon.com/images/I/61RLzFHpZNL.jpg"
     );
-    await createProduct(
-      "Yamaha FG800 Acoustic Guitar",
-      "This standard acoustic model combines timeless aesthetics with exceptional quality at an accessible price. Featuring a solid spruce top, it delivers an authentic, well-balanced sound that retains robust strength, thanks to its innovative scalloped bracing design. With a traditional western body, nato/mahogany back and sides, and a rosewood fingerboard and bridge, this guitar is not only visually appealing but also perfect for beginners looking to develop their skills. Its craftsmanship ensures a reliable performance, making it a highly recommended choice for new guitarists.",
-      229.99,
-      1,
-      "https://m.media-amazon.com/images/I/61ND88VcoaL._AC_UF894,1000_QL80_.jpg"
-    );
-    await createProduct(
-      "Gibson Acoustic Guitar",
-      "The Gibson SJ-200 is renowned as the world's most iconic acoustic guitar, often referred to as the 'King of the Flat-Tops.' Since its debut in 1937, its popularity among American artists has made this Super Jumbo one of the most played acoustic guitars of all time. Notable features of the SJ-200 Original include a carved four-bar Moustache bridge, an engraved tortoise pickguard, and stunning mother-of-pearl crown inlays on the fretboard and headstock. With its elegant shape and exquisite flamed maple back and sides, the SJ-200 stands as a true American classic.",
-      5699.99,
-      1,
-      "https://guitarfactory.net/cdn/shop/collections/Menu-Guitars-Acoustic-004.jpg?v=1711515615"
-    );
-    await createProduct(
-      "Martin Acoustic-Electric Guitar",
-      "The GP acoustic-electric guitar features a powerful body design that ensures both comfort and playability. Its HPL body construction offers excellent resistance to temperature and humidity changes, making it a reliable choice for various environments. The top X-bracing enhances resonance, allowing the guitar’s sound to truly flourish. With a Performance Artist neck profile that feels great in your hand, playing becomes effortless. Equipped with Martin E-1 electronics, this guitar delivers impressive tone when plugged in. The Richlite fingerboard adds to the buttery smoothness of playability, while the sleek blacked-out design makes a striking statement both onstage and as a display piece.",
-      649.99,
-      1,
-      "https://media.musiciansfriend.com/is/image/MMGS7/Special-X-Style-000-Cutaway-Acoustic-Electric-Guitar-Black/L66003000001000-00-500x500.jpg"
-    );
-
     await createProduct(
       "Gammon Blue Drums",
       "Introducing the complete 5-piece junior drum set, the perfect kit for children ages 3-12 years old. Ideal for aspiring drummers, this set caters to beginners, intermediate, and advanced players looking to develop their skills. The drum set includes a 16 in. bass drum, snare drum, two mounted toms, a floor tom, hi-hat cymbals, and a crash cymbal, along with essential accessories like a snare stand, hi-hat stand, padded throne, and a pair of drumsticks—everything needed to start drumming right away!",
@@ -430,13 +401,6 @@ const init = async () => {
       599.99,
       2,
       "https://a.storyblok.com/f/165398/1644x1644/a609ae33dd/pdp_key_drums_1644x1644_stripes.png"
-    );
-    await createProduct(
-      "DW Natural Maple Drums",
-      "The DW Collector's Series 4-piece shell pack is a professional-grade kit designed to deliver both exceptional sound and stunning aesthetics. DW has spared no effort in creating the Collector's Series, incorporating their patented tone-enhancing features and options to offer drummers a versatile range of sounds. This shell pack surpasses expectations in terms of quality and performance.",
-      3999.99,
-      2,
-      "https://www.dwdrums.com/_next/image/?url=https%3A%2F%2Fa.storyblok.com%2Ff%2F165398%2F1644x1644%2F4ed13934c1%2Fdw_key_drumrug_1644x1644.png&w=3840&q=75"
     );
     await createProduct(
       "Ludwig Drums",
@@ -503,7 +467,7 @@ const init = async () => {
       "https://m.media-amazon.com/images/I/71FobkNjTZL.jpg"
     );
     await createProduct(
-      "Yamaha Aruis Digital Piano",
+      "Yamaha Arius Piano",
       "The CFX Premium Grand Piano Voice captures the power and tone of Yamaha's flagship CFX concert grand piano, offering an authentic playing experience. It features Graded Hammer 3 (GH3) action with synthetic ivory key tops, providing a tactile surface that absorbs moisture and prevents slipping. With Virtual Resonance Modeling (VRM), the instrument delivers vivid and richly varied expression, reflecting the complexities of concert grand sound. The full dot LCD display enables smooth navigation through its features, while the included padded bench, music stand, power supply, and sheet music book enhance convenience. With a maximum polyphony of 128 and half-damper pedal control, players can achieve greater nuance and realism, similar to an acoustic grand piano. The MIDI recording function allows for the recording of up to 16 tracks for simultaneous playback, and the innovative Stereophonic Optimizer offers a unique headphone experience, making this instrument a versatile choice for both practice and performance.",
       459.99,
       3,

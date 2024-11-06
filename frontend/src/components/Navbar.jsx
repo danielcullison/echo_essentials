@@ -1,73 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useProducts } from "../context/ProductsContext";
 import echoEssentialsLogo from "../assets/echoEssentialsLogo.png";
 import accountIcon from "../assets/accountIcon.png";
 import searchIcon from "../assets/searchIcon.png";
 import cartIcon from "../assets/cartIcon.png";
 import "../styles/Navbar.css";
-import { useAuth } from "../context/AuthContext"; // Import your AuthContext for user authentication
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { logout, user } = useAuth(); // Destructure logout function and user object from context
-  const [isUserMenuOpen, setUserMenuOpen] = useState(false); // Track whether the user menu is open
-  const [isSearchBarVisible, setSearchBarVisible] = useState(false); // Track visibility of search bar
-  const navigate = useNavigate(); // Hook to navigate to different routes
+  const { products } = useProducts();
+  const { logout, user } = useAuth();
+  const [isUserMenuOpen, setUserMenuOpen] = useState(false);
+  const [isSearchBarVisible, setSearchBarVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const navigate = useNavigate();
+  
+  // Refs for detecting click outside the search bar
+  const searchBarRef = useRef(null);
+  const userMenuRef = useRef(null);
+
+  // Handle search input change and filter products
+  const handleSearchChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    if (query.length > 2) {
+      // Filter products based on search query
+      const filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts([]); // Clear suggestions when query is short
+    }
+  };
+
+  // Handle product click and navigate to product detail page
+  const handleProductClick = (productId) => {
+    navigate(`/products/${productId}`);
+    setSearchQuery(""); // Clear search input
+    setFilteredProducts([]); // Clear filtered products
+  };
 
   // Toggle the visibility of the user menu
   const toggleUserMenu = () => {
-    setUserMenuOpen((prev) => !prev); // Toggle user menu state
-    if (isSearchBarVisible) setSearchBarVisible(false); // Close the search bar if it's open
+    setUserMenuOpen((prev) => !prev);
+    if (isSearchBarVisible) setSearchBarVisible(false); // Close search bar if open
   };
 
   // Toggle the visibility of the search bar
   const toggleSearchBar = () => {
-    setSearchBarVisible((prev) => !prev); // Toggle search bar state
-    if (isUserMenuOpen) setUserMenuOpen(false); // Close the user menu if it's open
+    setSearchBarVisible((prev) => !prev);
+    if (isUserMenuOpen) setUserMenuOpen(false); // Close user menu if open
   };
 
-  // Handle logout functionality
+  // Handle logout
   const handleLogout = () => {
-    logout(); // Call logout function from context
+    logout();
     navigate("/"); // Redirect to homepage after logout
   };
 
-  // Close user menu or search bar if user clicks outside of them
+  // Close the search bar or user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const userMenu = document.querySelector(".user-account-menu");
-      const searchBar = document.querySelector(".search-bar");
-      const accountIconElement = document.querySelector(".account-icon");
-      const searchIconElement = document.querySelector(".search-icon");
+      if (searchBarRef.current && !searchBarRef.current.contains(event.target) && !event.target.closest('.search-icon')) {
+        setSearchBarVisible(false);
+        setFilteredProducts([]);
+      }
 
-      // Close user menu if click is outside the menu or account icon
-      if (
-        userMenu &&
-        !userMenu.contains(event.target) &&
-        accountIconElement &&
-        !accountIconElement.contains(event.target)
-      ) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target) && !event.target.closest('.account-icon')) {
         setUserMenuOpen(false);
       }
-
-      // Close search bar if click is outside the search bar or search icon
-      if (
-        searchBar &&
-        !searchBar.contains(event.target) &&
-        searchIconElement &&
-        !searchIconElement.contains(event.target)
-      ) {
-        setSearchBarVisible(false);
-      }
     };
 
-    // Add event listener for detecting outside clicks
-    document.addEventListener("mousedown", handleClickOutside);
+    // Add event listener for clicks outside
+    document.addEventListener('click', handleClickOutside);
 
-    // Cleanup event listener when component is unmounted
+    // Cleanup event listener on unmount
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
-  }, [isUserMenuOpen, isSearchBarVisible]); // Re-run effect when user menu or search bar state changes
+  }, []);
 
   return (
     <nav className="navbar">
@@ -105,13 +120,31 @@ const Navbar = () => {
           />
         </li>
       </ul>
-      <div className={`search-bar ${isSearchBarVisible ? "active" : ""}`}>
-        <input type="text" placeholder="Search products..." />
+      <div ref={searchBarRef} className={`search-bar ${isSearchBarVisible ? "active" : ""}`}>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        {filteredProducts.length > 0 && (
+          <div className="search-dropdown">
+            {filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="search-result"
+                onClick={() => handleProductClick(product.id)}
+              >
+                <h4>{product.name}</h4>
+                <p>{`$${product.price.toFixed(2)}`}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {isUserMenuOpen && (
-        <div className={`user-account-menu active`}>
+        <div ref={userMenuRef} className={`user-account-menu active`}>
           <ul>
-            {/* Links for user authentication actions */}
             <Link to="/signup">
               <li>Sign Up</li>
             </Link>
@@ -119,7 +152,6 @@ const Navbar = () => {
               <li>Login</li>
             </Link>
             {user && user.role === "admin" && (
-              // Show admin link if the user is an admin
               <Link to="/admin">
                 <li>Admin</li>
               </Link>
