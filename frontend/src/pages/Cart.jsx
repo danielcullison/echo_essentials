@@ -84,22 +84,24 @@ const Cart = () => {
     }
   };
 
-  // Update the quantity of an item in the cart
   const updateQuantity = async (productId, newQuantity) => {
-    if (!user || newQuantity < 1) return; // Ensure valid quantity and user is logged in
-
+    if (!user || newQuantity < 1) {
+      console.log("Invalid user or quantity is less than 1");
+      return; // Ensure valid quantity and user is logged in
+    }
+    
     try {
+      // Log the request URL and headers
+      const url = `http://localhost:3000/api/cart/${productId}`;
+  
       // Send request to update the cart item quantity
-      const response = await axios.put(
-        `http://localhost:3000/api/cart/${productId}`,
-        { quantity: newQuantity },
-        {
-          headers: { Authorization: `Bearer ${user.token}` },
-        }
-      );
-
+      const response = await axios.put(url, { quantity: newQuantity }, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+  
       // Update the cart item in the local state after successful response
       const updatedItem = response.data;
+  
       setCartItems((prevItems) =>
         prevItems.map((item) =>
           item.product_id === productId
@@ -108,6 +110,11 @@ const Cart = () => {
         )
       );
     } catch (err) {
+      console.error("Error in updating item:", err); // Log the error object
+      // If the error has a response, log it
+      if (err.response) {
+        console.error("Error response from server:", err.response);
+      }
       setError("Error updating item. Please try again.");
     }
   };

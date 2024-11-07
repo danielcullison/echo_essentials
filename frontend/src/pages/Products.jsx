@@ -34,33 +34,71 @@ const Products = () => {
     fetchProducts(); // Invoke the function to fetch products
   }, []); // Empty dependency array means this effect runs only once (when the component mounts)
 
-  // Add product to cart
+  // Add or update product in cart
   const addToCart = async (productId) => {
     if (!user) {
-      alert("You must be logged in to add items to the cart."); // Ensure user is logged in before adding to cart
+      alert("You must be logged in to add items to the cart.");
       return;
     }
 
     // Find the product by its ID
     const product = products.find(p => p.id === productId);
     const productName = product ? product.name : "Product";
+    
+    console.log("Adding to cart for product:", product); // Log the product you're trying to add to the cart
 
     try {
-      // Send POST request to add the product to the user's cart
-      await axios.post('http://localhost:3000/api/cart', {
-        product_id: productId,
-        quantity: 1, // Default quantity is 1
-      }, {
+      // Check if the product is already in the cart
+      const response = await axios.get('http://localhost:3000/api/cart', {
         headers: {
-          Authorization: `Bearer ${user.token}`, // Include the user token for authentication
+          Authorization: `Bearer ${user.token}`,
         },
       });
 
-      // Notify user of the successful addition to cart
-      alert(`${productName} added to your cart!`);
+      console.log("Cart response data:", response.data); // Log the response from the cart API
+
+      // Check if the response data has the expected structure
+      if (response.data && response.data.cart && Array.isArray(response.data.cart.cart)) {
+        const cartItem = response.data.cart.cart.find(item => item.product_id === productId);
+        console.log("Found cart item:", cartItem); // Log the found cart item
+
+        if (cartItem) {
+          // If the product is already in the cart, update the quantity
+          await axios.put(
+            `http://localhost:3000/api/cart/${cartItem.product_id}`,
+            {
+              quantity: cartItem.quantity + 1, // Increase the quantity by 1
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          alert(`${productName} quantity updated in your cart!`);
+        } else {
+          // If the product is not in the cart, add it
+          await axios.post(
+            'http://localhost:3000/api/cart',
+            {
+              product_id: productId,
+              quantity: 1, // Default quantity is 1
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          alert(`${productName} added to your cart!`);
+        }
+      } else {
+        console.error("Unexpected response structure for cart:", response.data); // Log if the response structure is unexpected
+        alert("Error fetching cart items. Please try again.");
+      }
     } catch (err) {
-      console.error('Error adding item to cart:', err); // Log any error to the console
-      alert('Could not add item to cart. Please try again.'); // Display error message to user
+      console.error('Error adding or updating item in cart:', err); // Log the error in case something goes wrong
+      alert('Could not add or update item in cart. Please try again.');
     }
   };
 

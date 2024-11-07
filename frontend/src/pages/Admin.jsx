@@ -46,7 +46,7 @@ const Admin = () => {
     };
 
     fetchData();
-  }, [user]); // Re-run when the user changes (e.g., when logged in/out)
+  }, [user, products]); // Re-run when the user changes (e.g., when logged in/out)
 
   // Handle adding a new product
   const handleAddProduct = async () => {

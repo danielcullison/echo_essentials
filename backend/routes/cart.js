@@ -45,7 +45,7 @@ router.put("/:product_id", isLoggedIn, async (req, res) => {
   }
 
   try {
-    const updatedCartItem = await updateCartItem(req.user.id, product_id, { quantity }); // Update the cart item
+    const updatedCartItem = await updateCartItem(req.user.user.id, product_id, { quantity }); // Update the cart item
 
     if (!updatedCartItem) {
       return res.status(404).json({ error: "Cart item not found or update failed." }); // Handle item not found
