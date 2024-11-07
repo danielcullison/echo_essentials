@@ -10,11 +10,11 @@ const Admin = () => {
   const [loading, setLoading] = useState(true); // State to manage loading status
   const [error, setError] = useState(null); // State to manage error messages
   const [newProduct, setNewProduct] = useState({
-    name: '',
-    description: '',
-    price: '',
-    category_id: '',
-    image_url: ''
+    name: "",
+    description: "",
+    price: "",
+    category_id: "",
+    image_url: "",
   }); // State for handling new/edited product data
   const [editProductId, setEditProductId] = useState(null); // State to track the product being edited
 
@@ -39,7 +39,9 @@ const Admin = () => {
         setProducts(productsResponse.data.products); // Set products data from response
         setUsers(usersResponse.data.users); // Set users data from response
       } catch (err) {
-        setError(err.response ? err.response.data.error : "Error fetching data");
+        setError(
+          err.response ? err.response.data.error : "Error fetching data"
+        );
       } finally {
         setLoading(false); // Stop loading once data is fetched
       }
@@ -54,17 +56,22 @@ const Admin = () => {
 
     try {
       // Send POST request to add the new product
-      await axios.post(
-        "http://localhost:3000/api/admin/products",
-        newProduct,
-        {
-          headers: { Authorization: `Bearer ${user.token}` }, // Pass token in headers
-        }
-      );
+      await axios.post("http://localhost:3000/api/admin/products", newProduct, {
+        headers: { Authorization: `Bearer ${user.token}` }, // Pass token in headers
+      });
       setProducts((prev) => [...prev, newProduct]); // Add new product to state
-      setNewProduct({ name: '', description: '', price: '', category_id: '', image_url: '' }); // Clear the form
+      setNewProduct({
+        name: "",
+        description: "",
+        price: "",
+        category_id: "",
+        image_url: "",
+      }); // Clear the form
     } catch (err) {
-      setError("Error adding product: " + (err.response ? err.response.data.error : err.message));
+      setError(
+        "Error adding product: " +
+          (err.response ? err.response.data.error : err.message)
+      );
     }
   };
 
@@ -81,14 +88,23 @@ const Admin = () => {
         }
       );
       setProducts((prev) =>
-        prev.map((product) =>
-          product.id === id ? response.data : product // Update the product in state
+        prev.map(
+          (product) => (product.id === id ? response.data : product) // Update the product in state
         )
       );
       setEditProductId(null); // Clear the edit mode
-      setNewProduct({ name: '', description: '', price: '', category_id: '', image_url: '' }); // Reset form
+      setNewProduct({
+        name: "",
+        description: "",
+        price: "",
+        category_id: "",
+        image_url: "",
+      }); // Reset form
     } catch (err) {
-      setError("Error updating product: " + (err.response ? err.response.data.error : err.message));
+      setError(
+        "Error updating product: " +
+          (err.response ? err.response.data.error : err.message)
+      );
     }
   };
 
@@ -103,7 +119,10 @@ const Admin = () => {
       });
       setProducts((prev) => prev.filter((product) => product.id !== id)); // Remove product from state
     } catch (err) {
-      setError("Error deleting product: " + (err.response ? err.response.data.error : err.message));
+      setError(
+        "Error deleting product: " +
+          (err.response ? err.response.data.error : err.message)
+      );
     }
   };
 
@@ -115,47 +134,61 @@ const Admin = () => {
     <div className="admin-container">
       <h1 className="admin-title">Admin Dashboard</h1>
 
-      <h2>Products</h2>
-      <div>
-        <h3>{editProductId ? 'Edit Product' : 'Add Product'}</h3>
+      {/* Add or edit product form */}
+      <div className="add-product-container">
+        <h3>{editProductId ? "Edit Product" : "Add Product"}</h3>
         {/* Product input fields */}
         <input
           type="text"
           placeholder="Name"
           value={newProduct.name}
-          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, name: e.target.value })
+          }
         />
         <input
           type="text"
           placeholder="Description"
           value={newProduct.description}
-          onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, description: e.target.value })
+          }
         />
         <input
           type="number"
           placeholder="Price"
           value={newProduct.price}
-          onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, price: e.target.value })
+          }
         />
         <input
           type="text"
           placeholder="Category ID"
           value={newProduct.category_id}
-          onChange={(e) => setNewProduct({ ...newProduct, category_id: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, category_id: e.target.value })
+          }
         />
         <input
           type="text"
           placeholder="Image URL"
           value={newProduct.image_url}
-          onChange={(e) => setNewProduct({ ...newProduct, image_url: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, image_url: e.target.value })
+          }
         />
         {/* Button for adding or updating a product */}
         {editProductId ? (
-          <button onClick={() => handleEditProduct(editProductId)}>Update Product</button>
+          <button onClick={() => handleEditProduct(editProductId)}>
+            Update Product
+          </button>
         ) : (
           <button onClick={handleAddProduct}>Add Product</button>
         )}
       </div>
+
+      <h2>Products</h2>
 
       {/* List of products */}
       <ul className="admin-product-list">
@@ -163,8 +196,19 @@ const Admin = () => {
           <li key={product.id} className="admin-product-item">
             {product.name} - {product.price} USD
             {/* Buttons for editing and deleting a product */}
-            <button onClick={() => { setEditProductId(product.id); setNewProduct(product); }}>Edit</button>
-            <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
+            <div className="button-wrapper">
+              <button
+                onClick={() => {
+                  setEditProductId(product.id);
+                  setNewProduct(product);
+                }}
+              >
+                Edit
+              </button>
+              <button onClick={() => handleDeleteProduct(product.id)}>
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
@@ -174,7 +218,8 @@ const Admin = () => {
       <ul className="admin-user-list">
         {users.map((user) => (
           <li key={user.id}>
-            {user.username} - {user.email} - Joined on {new Date(user.created_at).toLocaleDateString()}
+            {user.username} - {user.email} - Joined on{" "}
+            {new Date(user.created_at).toLocaleDateString()}
           </li>
         ))}
       </ul>

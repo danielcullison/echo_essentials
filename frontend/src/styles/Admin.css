@@ -1,5 +1,5 @@
 /* Importing Google font Orbitron for use in the project */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 
 /* Body styling: 
    - Ensures full width and height for the page. 
@@ -8,7 +8,7 @@
 body {
   margin: 0; /* Removes default margin */
   padding: 0; /* Removes default padding */
-  background-color: #DCDCDC; /* Grey background for the entire page */
+  background-color: #dcdcdc; /* Grey background for the entire page */
   font-family: "Orbitron", sans-serif; /* Consistent font across the page */
   width: 100%; /* Full width for the body */
   height: 100%; /* Full height for the body */
@@ -18,15 +18,29 @@ body {
    - Flexbox layout to center content both vertically and horizontally.
    - Full page height to ensure content is centered even if there's not much content. */
 .admin-container {
-  display: flex; /* Use flexbox layout */
-  flex-direction: column; /* Align child elements in a column */
-  align-items: center; /* Center child elements horizontally */
-  justify-content: center; /* Center child elements vertically */
-  padding: 20px; /* Padding around the content */
-  background-color: #DCDCDC; /* Light background to match the body */
-  min-height: 100vh; /* Ensure the container takes at least full viewport height */
-  width: 100%; /* Full width for the container */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow around the container */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  padding: 20px;
+  background-color: #dcdcdc; /* Light background to match the body */
+  min-height: 100vh; /* Ensure container takes full height of the viewport */
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+}
+
+.add-product-container {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Align children (title, inputs, button) in a column */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
+  padding: 20px;
+  background-color: #fff; /* Optional: You can give it a different background for contrast */
+  border-radius: 10px; /* Optional: Round corners */
+  width: 100%; /* Ensure it takes full width */
+  max-width: 600px; /* Optional: Limit width for readability */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+  margin: 20px auto; /* Center the container horizontally on the page */
 }
 
 /* Admin title: 
@@ -39,7 +53,8 @@ body {
 
 /* Styling for loading and error messages: 
    - Centered text with a moderate font size for readability. */
-.admin-loading, .admin-error {
+.admin-loading,
+.admin-error {
   text-align: center; /* Center text horizontally */
   font-size: 1.5rem; /* Medium font size */
   margin-top: 20px; /* Margin from the previous content */
@@ -48,11 +63,12 @@ body {
 
 /* Admin product list and user list:
    - Removes default list styling and applies padding and width control. */
-.admin-product-list, .admin-user-list {
+.admin-product-list,
+.admin-user-list {
   list-style-type: none; /* Remove default bullet points */
   padding: 0; /* Removes extra padding */
   width: 100%; /* Full width for the list */
-  max-width: 600px; /* Limit width to 600px for readability */
+  max-width: 650px; /* Limit width to 600px for readability */
   margin: 20px 0; /* Vertical space between sections */
 }
 
@@ -67,6 +83,18 @@ body {
   display: flex; /* Use flexbox for layout */
   justify-content: space-between; /* Distribute items with space between */
   align-items: center; /* Align content vertically in the center */
+  position: relative; /* Position context for absolute positioning of buttons */
+}
+
+/* Button wrapper: 
+   - Positioning it absolutely to the right of the product item */
+.button-wrapper {
+  display: flex; /* Keep the buttons in a row */
+  position: absolute; /* Absolutely position the button wrapper */
+  right: 10px; /* Align it 10px from the right edge */
+  top: 50%; /* Vertically center the buttons */
+  transform: translateY(-50%); /* Center the buttons by adjusting for height */
+  gap: 10px; /* Space between buttons */
 }
 
 /* Button inside product item: 
@@ -80,6 +108,7 @@ body {
   border-radius: 5px; /* Rounded corners for the button */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
+  width: 80px; /* Optional: Set a fixed width for each button */
 }
 
 /* Button hover effect:
@@ -90,7 +119,8 @@ body {
 
 /* Input fields (text and number):
    - Full-width with padding, margin, and border for a clean look. */
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
   width: 100%; /* Full width for inputs */
   padding: 10px; /* Padding for input fields */
   margin: 10px 0; /* Vertical space between input fields */
@@ -101,7 +131,8 @@ input[type="text"], input[type="number"] {
 
 /* Input focus state: 
    - Darker border on focus to indicate active field. */
-input[type="text"]:focus, input[type="number"]:focus {
+input[type="text"]:focus,
+input[type="number"]:focus {
   border-color: #333; /* Darker border when focused */
 }
 
@@ -116,6 +147,7 @@ button {
   border-radius: 30px; /* Fully rounded button corners */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s; /* Smooth transition on hover */
+  font-family: "Orbitron", sans-serif;
 }
 
 /* Button hover effect: 
@@ -136,5 +168,14 @@ button:hover {
   .admin-product-item {
     flex-direction: column; /* Stack product item elements vertically */
     align-items: flex-start; /* Align elements to the left */
+  }
+
+  /* Adjust button wrapper for mobile */
+  .button-wrapper {
+    position: relative; /* Remove absolute positioning */
+    right: auto; /* Reset right positioning */
+    top: auto; /* Reset top positioning */
+    transform: none; /* No vertical translation */
+    gap: 5px; /* Reduce gap between buttons on small screens */
   }
 }
