@@ -1,4 +1,10 @@
-/* SignUp.css */
+/* Ensure the body takes up the full width and height of the page */
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-color: #DCDCDC; /* Grey background for the entire page */
+    font-family: "Orbitron", sans-serif; /* Use Orbitron font for consistency */
+  }
 
 /* Container for the entire SignUp page */
 .signup-container {
@@ -11,6 +17,7 @@
     min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
     font-family: "Orbitron", sans-serif; /* Consistent font across the page */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to create depth */
+    width: 100%; /* Ensure the container takes up full width */
 }
 
 /* Styling for the SignUp page title */

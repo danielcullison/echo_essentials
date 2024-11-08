@@ -1,3 +1,11 @@
+/* Ensure the body takes up the full width and height of the page */
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  background-color: #DCDCDC; /* Grey background for the entire page */
+  font-family: "Orbitron", sans-serif; /* Use Orbitron font for consistency */
+}
+
 /* Login container that holds the login form and its elements */
 .login-container {
   display: flex; /* Use flexbox for layout */
@@ -9,6 +17,7 @@
   min-height: 100vh; /* Make sure the container takes at least full viewport height */
   font-family: "Orbitron", sans-serif; /* Apply consistent font for the login page */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+  width: 100%; /* Ensure the container takes full width */
 }
 
 /* Styling for the title of the login page */
