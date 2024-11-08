@@ -145,18 +145,28 @@ const Navbar = () => {
       {isUserMenuOpen && (
         <div ref={userMenuRef} className={`user-account-menu active`}>
           <ul>
-            <Link to="/signup">
-              <li>Sign Up</li>
-            </Link>
-            <Link to="/login">
-              <li>Login</li>
-            </Link>
-            {user && user.role === "admin" && (
-              <Link to="/admin">
-                <li>Admin</li>
-              </Link>
+            {!user ? (
+              <>
+                <Link to="/signup">
+                  <li>Sign Up</li>
+                </Link>
+                <Link to="/login">
+                  <li>Login</li>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/profile">
+                  <li>Profile</li>
+                </Link>
+                {user.role === "admin" && (
+                  <Link to="/admin">
+                    <li>Admin</li>
+                  </Link>
+                )}
+                <li onClick={handleLogout}>Logout</li>
+              </>
             )}
-            <li onClick={handleLogout}>Logout</li>
           </ul>
         </div>
       )}

@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Cart from "./pages/Cart";
 import Admin from "./pages/Admin";
 import "./App.css";
+import Profile from "./pages/Profile.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
       </ProductsProvider>
