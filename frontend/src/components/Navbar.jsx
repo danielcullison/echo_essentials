@@ -7,6 +7,7 @@ import searchIcon from "../assets/searchIcon.png";
 import cartIcon from "../assets/cartIcon.png";
 import "../styles/Navbar.css";
 import { useAuth } from "../context/AuthContext";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const { products } = useProducts();
@@ -15,72 +16,114 @@ const Navbar = () => {
   const [isSearchBarVisible, setSearchBarVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
-  
-  // Refs for detecting click outside the search bar
+
   const searchBarRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  // Handle search input change and filter products
   const handleSearchChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
-
     if (query.length > 2) {
-      // Filter products based on search query
       const filtered = products.filter((product) =>
         product.name.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredProducts(filtered);
     } else {
-      setFilteredProducts([]); // Clear suggestions when query is short
+      setFilteredProducts([]);
     }
   };
 
-  // Handle product click and navigate to product detail page
   const handleProductClick = (productId) => {
     navigate(`/products/${productId}`);
-    setSearchQuery(""); // Clear search input
-    setFilteredProducts([]); // Clear filtered products
+    setSearchQuery("");
+    setFilteredProducts([]);
+    setMobileMenuOpen(false);
   };
 
-  // Toggle the visibility of the user menu
   const toggleUserMenu = () => {
     setUserMenuOpen((prev) => !prev);
-    if (isSearchBarVisible) setSearchBarVisible(false); // Close search bar if open
+    if (isSearchBarVisible) setSearchBarVisible(false);
   };
 
-  // Toggle the visibility of the search bar
   const toggleSearchBar = () => {
     setSearchBarVisible((prev) => !prev);
-    if (isUserMenuOpen) setUserMenuOpen(false); // Close user menu if open
+    if (isUserMenuOpen) setUserMenuOpen(false);
   };
 
-  // Handle logout
   const handleLogout = () => {
     logout();
-    navigate("/"); // Redirect to homepage after logout
+    setMobileMenuOpen(false);
+    navigate("/");
   };
 
-  // Close the search bar or user menu when clicking outside
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleNavigate = (path) => {
+    navigate(path);
+    setMobileMenuOpen(false);
+  };
+
+  // Mobile menu items based on user authentication and role
+  const getMobileMenuItems = () => {
+    const baseItems = [
+      { label: "Home", onClick: () => handleNavigate("/") },
+      { label: "Products", onClick: () => handleNavigate("/products") },
+      { label: "Cart", onClick: () => handleNavigate("/cart") },
+    ];
+
+    if (!user) {
+      return [
+        ...baseItems,
+        { label: "Sign Up", onClick: () => handleNavigate("/signup") },
+        { label: "Login", onClick: () => handleNavigate("/login") },
+      ];
+    }
+
+    const authenticatedItems = [
+      ...baseItems,
+      { label: "Profile", onClick: () => handleNavigate("/profile") },
+      { label: "Logout", onClick: handleLogout },
+    ];
+
+    if (user.role === "admin") {
+      return [
+        ...authenticatedItems.slice(0, -1), // Remove logout temporarily
+        { label: "Admin", onClick: () => handleNavigate("/admin") },
+        { label: "Logout", onClick: handleLogout }, // Add logout at the end
+      ];
+    }
+
+    return authenticatedItems;
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchBarRef.current && !searchBarRef.current.contains(event.target) && !event.target.closest('.search-icon')) {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target) &&
+        !event.target.closest(".search-icon")
+      ) {
         setSearchBarVisible(false);
         setFilteredProducts([]);
       }
 
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target) && !event.target.closest('.account-icon')) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target) &&
+        !event.target.closest(".account-icon")
+      ) {
         setUserMenuOpen(false);
       }
     };
 
-    // Add event listener for clicks outside
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
-    // Cleanup event listener on unmount
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -88,9 +131,15 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo">
         <Link to="/">
-          <img className="logo" src={echoEssentialsLogo} alt="Echo Essentials Logo" />
+          <img
+            className="logo"
+            src={echoEssentialsLogo}
+            alt="Echo Essentials Logo"
+          />
         </Link>
       </div>
+
+      {/* Desktop Menu */}
       <ul className="nav-links">
         <li className="home">
           <Link to="/">Home</Link>
@@ -120,7 +169,28 @@ const Navbar = () => {
           />
         </li>
       </ul>
-      <div ref={searchBarRef} className={`search-bar ${isSearchBarVisible ? "active" : ""}`}>
+
+      {/* Mobile Menu Toggle Button */}
+      <button className="mobile-menu-icon" onClick={toggleMobileMenu}>
+        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu">
+          {getMobileMenuItems().map((item, index) => (
+            <div key={index} className="mobile-menu-item" onClick={item.onClick}>
+              {item.label}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Search Bar */}
+      <div
+        ref={searchBarRef}
+        className={`search-bar ${isSearchBarVisible ? "active" : ""}`}
+      >
         <input
           type="text"
           placeholder="Search products..."
@@ -142,6 +212,8 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* User Menu (Desktop) */}
       {isUserMenuOpen && (
         <div ref={userMenuRef} className={`user-account-menu active`}>
           <ul>
