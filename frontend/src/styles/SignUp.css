@@ -1,98 +1,128 @@
-/* Ensure the body takes up the full width and height of the page */
-body {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    background-color: #DCDCDC; /* Grey background for the entire page */
-    font-family: "Orbitron", sans-serif; /* Use Orbitron font for consistency */
+/* Importing Google font Orbitron for use in the project */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: #dcdcdc;
+  min-height: 100vh;
+  font-family: "Orbitron", sans-serif;
+  width: 100%;
+}
+
+.signup-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.signup-input-group {
+  margin-bottom: 20px;
+}
+
+.signup-label {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.signup-input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+  font-family: "Orbitron", sans-serif;
+}
+
+.signup-input:focus {
+  outline: none;
+  border-color: #555;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.signup-error,
+.signup-success {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+.signup-button {
+  padding: 12px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: "Orbitron", sans-serif;
+}
+
+.signup-button:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px (Tablets, Small Devices) */
+@media (max-width: 768px) {
+  .signup-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
   }
 
-/* Container for the entire SignUp page */
-.signup-container {
-    display: flex; /* Use flexbox layout for easy alignment */
-    flex-direction: column; /* Stack the elements vertically */
-    align-items: center; /* Horizontally center the items */
-    justify-content: center; /* Vertically center the items */
-    padding: 0; /* No extra padding */
-    background-color: #DCDCDC; /* Light grey background for consistency with the app theme */
-    min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
-    font-family: "Orbitron", sans-serif; /* Consistent font across the page */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to create depth */
-    width: 100%; /* Ensure the container takes up full width */
+  .signup-form {
+    max-width: 350px;
+  }
+
+  .signup-input {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .signup-button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+  }
 }
 
-/* Styling for the SignUp page title */
-.signup-title {
-    font-size: 3rem; /* Large font size for the title */
-    color: #333; /* Dark text color for contrast */
-    margin-bottom: 30px; /* Space below the title to separate from the form */
-}
+/* For screens smaller than 480px (Mobile Devices) */
+@media (max-width: 480px) {
+  .signup-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
 
-/* Form container for the SignUp form elements */
-.signup-form {
-    display: flex; /* Use flexbox layout for the form */
-    flex-direction: column; /* Stack form elements vertically */
-    width: 100%; /* Ensure the form takes up full width */
-    max-width: 400px; /* Limit the maximum width of the form */
-}
+  .signup-form {
+    max-width: 300px;
+  }
 
-/* Grouping of individual input elements within the form */
-.signup-input-group {
-    margin-bottom: 20px; /* Space between input fields */
-}
+  .signup-input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
 
-/* Styling for the labels associated with the inputs */
-.signup-label {
-    font-size: 1.2rem; /* Label font size */
-    color: #333; /* Dark text color for readability */
-    margin-bottom: 5px; /* Small space below the label for separation */
-}
+  .signup-button {
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
 
-/* Styling for the input fields in the SignUp form */
-.signup-input {
-    padding: 12px; /* Add padding inside the input fields */
-    font-size: 1rem; /* Standard input font size */
-    border: 2px solid #ddd; /* Light border color for the default state */
-    border-radius: 10px; /* Rounded corners for the input field */
-    width: 100%; /* Ensure the input field takes full width of the form */
-    transition: border-color 0.3s ease; /* Smooth transition for border color change */
-}
-
-/* Focus state for the input fields */
-.signup-input:focus {
-    outline: none; /* Remove the default browser outline when focused */
-    border-color: #555; /* Change the border color to dark grey when focused */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add a shadow effect to highlight the input */
-}
-
-/* Styling for error messages */
-.signup-error {
-    color: #333; /* Dark text color for error messages */
-    font-size: 1rem; /* Standard font size for error text */
-    margin-top: 10px; /* Space above the error message */
-}
-
-/* Styling for success messages */
-.signup-success {
-    color: #333; /* Dark text color for success messages */
-    font-size: 1rem; /* Standard font size for success text */
-    margin-top: 10px; /* Space above the success message */
-}
-
-/* Styling for the SignUp button */
-.signup-button {
-    padding: 12px; /* Button padding for a comfortable click area */
-    font-size: 1.2rem; /* Button font size */
-    color: #fff; /* White text on the button */
-    background-color: #333; /* Dark background color for the button */
-    border: none; /* Remove the default border */
-    border-radius: 30px; /* Rounded corners for the button */
-    cursor: pointer; /* Pointer cursor on hover to indicate interactivity */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for color change and scaling effect */
-    font-family: "Orbitron", sans-serif; /* Consistent font for the button */
-}
-
-/* Hover effect for the SignUp button */
-.signup-button:hover {
-    background-color: #555; /* Lighter shade on hover for a visual indication */
-    transform: scale(1.05); /* Slightly enlarge the button on hover for feedback */
+  .signup-error,
+  .signup-success {
+    font-size: 0.9rem;
+  }
 }

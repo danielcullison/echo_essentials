@@ -216,7 +216,7 @@ const Cart = () => {
           <h3>Total: ${calculateTotalAmount().toFixed(2)}</h3>
         </div>
       )}
-
+      <div className="cart-button-wrapper">
       {/* Checkout button */}
       <button onClick={createOrder} className="cart-checkout-button">
         Check Out
@@ -229,6 +229,7 @@ const Cart = () => {
       >
         Continue Shopping
       </button>
+      </div>
     </div>
   );
 };

@@ -44,8 +44,6 @@ const Products = () => {
     // Find the product by its ID
     const product = products.find(p => p.id === productId);
     const productName = product ? product.name : "Product";
-    
-    console.log("Adding to cart for product:", product); // Log the product you're trying to add to the cart
 
     try {
       // Check if the product is already in the cart
@@ -55,12 +53,9 @@ const Products = () => {
         },
       });
 
-      console.log("Cart response data:", response.data); // Log the response from the cart API
-
       // Check if the response data has the expected structure
       if (response.data && response.data.cart && Array.isArray(response.data.cart.cart)) {
         const cartItem = response.data.cart.cart.find(item => item.product_id === productId);
-        console.log("Found cart item:", cartItem); // Log the found cart item
 
         if (cartItem) {
           // If the product is already in the cart, update the quantity

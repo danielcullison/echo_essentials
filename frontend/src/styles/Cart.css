@@ -1,199 +1,254 @@
-/* Ensure the body takes up the full width and height of the page */
-body {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  background-color: #DCDCDC; /* Grey background for the entire page */
-  font-family: "Orbitron", sans-serif; /* Use Orbitron font for consistency */
-}
+/* Importing Google font Orbitron for use in the project */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 
-/* Cart container:
-   - Flexbox layout to center content both vertically and horizontally.
-   - Full page height to ensure content is centered even if there is little content. */
 .cart-container {
-  display: flex; /* Use flexbox layout for easy alignment */
-  flex-direction: column; /* Stack elements in a vertical column */
-  align-items: center; /* Center child elements horizontally */
-  justify-content: center; /* Center child elements vertically */
-  padding: 20px; /* Padding around the content */
-  background-color: #DCDCDC; /* Light background to match the body */
-  min-height: 100vh; /* Ensure container takes at least full viewport height */
-  width: 100%; /* Full width for the container */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow around the container */
-  font-family: "Orbitron", sans-serif; /* Ensure Orbitron font is applied */
-}
-
-/* Cart title styling:
-   - Large font size with margin for spacing below. */
-.cart-title {
-  font-size: 2.5rem; /* Large font size for the cart title */
-  color: #333; /* Dark color for the title */
-  margin-bottom: 20px; /* Space below the title */
-}
-
-/* Empty cart message:
-   - Medium font size and gray color for the text. */
-.cart-empty {
-  font-size: 1.5rem; /* Medium font size for empty cart message */
-  color: #555; /* Gray color for the empty cart message */
-}
-
-/* Cart item list:
-   - Remove default list styling and apply width/spacing restrictions. */
-.cart-item-list {
-  list-style-type: none; /* Remove default list bullets */
-  padding: 0; /* Remove padding */
-  width: 100%; /* Full width for the list */
-  max-width: 600px; /* Limit maximum width for readability */
-}
-
-/* Cart item styling:
-   - Flexbox layout to stack content vertically with centered alignment.
-   - White background with rounded corners and subtle shadow. */
-.cart-item {
-  background: #fff; /* White background for each cart item */
-  border-radius: 10px; /* Rounded corners for items */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-  margin: 10px 0; /* Vertical space between items */
-  padding: 15px; /* Padding inside each item */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center-align elements horizontally */
-}
-
-/* Cart item name:
-   - Larger text for the product name with space for readability. */
-.cart-item-name {
-  font-size: 1.5rem; /* Larger font size for product name */
-  color: #333; /* Dark color for the name */
-  margin: 10px 0; /* Vertical spacing around the name */
-}
-
-/* Cart item image:
-   - Set fixed width/height and ensure image fits within the container without distortion. */
-.cart-item-image {
-  width: 100px; /* Set fixed width for the image */
-  height: 100px; /* Set fixed height for the image */
-  object-fit: cover; /* Cover the area without distortion */
-  border-radius: 10px; /* Rounded corners for the image */
-}
-
-/* Cart item description:
-   - Smaller font size with a lighter gray color for the description text. */
-.cart-item-description {
-  font-size: 1rem; /* Description text size */
-  color: #777; /* Light gray color for the description */
-  margin: 5px 0; /* Vertical margin around description */
-}
-
-/* Cart item price:
-   - Medium font size with gray color for price display. */
-.cart-item-price {
-  font-size: 1.2rem; /* Medium font size for the price */
-  color: #555; /* Gray color for price */
-  margin: 5px 0; /* Vertical spacing around the price */
-}
-
-/* Cart item quantity input:
-   - Fixed width for quantity input to maintain consistency. */
-.cart-item-quantity {
-  width: 60px; /* Fixed width for quantity input field */
-  margin: 10px 0; /* Vertical margin around the input */
-}
-
-/* Remove button styling:
-   - Dark background with white text, and hover effect for interactivity. */
-.cart-item-remove-button {
-  padding: 5px 10px; /* Padding for the remove button */
-  font-size: 1rem; /* Font size for the button */
-  color: #fff; /* White text color */
-  background-color: #333; /* Dark background for the button */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners for button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
-  font-family: "Orbitron", sans-serif; /* Apply Orbitron font */
-}
-
-/* Hover effect for the remove button:
-   - Lighter background when hovering over the button. */
-.cart-item-remove-button:hover {
-  background-color: #555; /* Lighter background color on hover */
-}
-
-/* Checkout button:
-   - Large, prominent button with padding and a smooth hover effect. */
-.cart-checkout-button {
-  padding: 10px 20px; /* Padding around the button */
-  font-size: 1rem; /* Font size for button text */
-  font-family: "Orbitron", sans-serif; /* Font style */
-  color: #fff; /* White text color */
-  background-color: #333; /* Dark background for button */
-  border: none; /* Remove border */
-  border-radius: 30px; /* Rounded corners for the button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
-  margin-top: 20px; /* Space above the button */
-}
-
-/* Hover effect for checkout button:
-   - Darker background when hovering over the button. */
-.cart-checkout-button:hover {
-  background-color: #555; /* Darker color on hover */
-}
-
-/* Loading and error messages:
-   - Centered text with gray color and moderate font size. */
-.cart-loading, .cart-error {
-  padding: 100px; /* Add space around the message */
-  text-align: center; /* Center-align the text */
-  font-size: 1.5rem; /* Font size for loading/error messages */
-  margin-top: 20px; /* Margin at the top */
-  color: #555; /* Gray color for messages */
-  font-family: "Orbitron", sans-serif; /* Apply Orbitron font */
-}
-
-/* Continue shopping button:
-   - Similar to the checkout button but with different space and hover behavior. */
-.cart-continue-shopping-button {
-  padding: 10px 20px; /* Padding around the button */
-  font-size: 1rem; /* Font size for the button */
-  color: #fff; /* White text */
-  background-color: #333; /* Dark background */
-  border: none; /* Remove border */
-  border-radius: 30px; /* Rounded corners for the button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover effect */
-  margin-top: 10px; /* Space above the button */
-  width: auto; /* Let the width adjust to the content */
-  text-align: center; /* Center the text within the button */
-  font-family: "Orbitron", sans-serif; /* Apply Orbitron font */
-}
-
-/* Hover effect for continue shopping button:
-   - Lighter shade on hover for better interactivity. */
-.cart-continue-shopping-button:hover {
-  background-color: #555; /* Lighter background on hover */
-}
-
-/* Focus state for continue shopping button:
-   - Removes focus outline for a cleaner look. */
-.cart-continue-shopping-button:focus {
-  outline: none; /* Remove focus outline */
-}
-
-/* Cart Total:
-   - Style for the total price display at the bottom of the cart. */
-.cart-total {
-  font-size: 1.5rem; /* Larger text for the total */
-  font-weight: bold; /* Bold text for emphasis */
-  margin-top: 20px; /* Space from the last cart item */
-  margin-bottom: 20px; /* Space before the checkout button */
-  color: #333; /* Dark color for total */
-  text-align: center; /* Center the total */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #dcdcdc;
+  min-height: 100vh;
   width: 100%;
-  max-width: 600px; /* Limit max width */
-  background: #f5f5f5; /* Light background for the total */
-  padding: 15px; /* Padding for the total section */
-  border-radius: 10px; /* Rounded corners for the total section */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: "Orbitron", sans-serif;
+  max-width: 100%;
+}
+
+.cart-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cart-empty {
+  font-size: 1.5rem;
+  color: #555;
+  text-align: center;
+}
+
+.cart-item-list {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.cart-item {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cart-item-name {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-item-description {
+  font-size: 1rem;
+  color: #777;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.cart-item-price {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.cart-item-quantity {
+  width: 60px;
+  margin: 10px 0;
+}
+
+.cart-item-remove-button {
+  padding: 5px 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Orbitron", sans-serif;
+}
+
+.cart-item-remove-button:hover {
+  background-color: #555;
+}
+
+.cart-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-left: 40px;
+  gap: 10px;
+}
+
+.cart-checkout-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-family: "Orbitron", sans-serif;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  max-width: 25%;
+}
+
+.cart-checkout-button:hover {
+  background-color: #555;
+}
+
+.cart-loading,
+.cart-error {
+  padding: 100px;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #555;
+  font-family: "Orbitron", sans-serif;
+}
+
+.cart-continue-shopping-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: auto;
+  text-align: center;
+  font-family: "Orbitron", sans-serif;
+}
+
+.cart-continue-shopping-button:hover {
+  background-color: #555;
+}
+
+.cart-continue-shopping-button:focus {
+  outline: none;
+}
+
+.cart-total {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  margin-left: 40px;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px (Tablets, small devices) */
+@media (max-width: 768px) {
+  .cart-title {
+    font-size: 2rem;
+  }
+
+  .cart-item-list {
+    max-width: 80%;
+  }
+
+  .cart-item {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .cart-item-name {
+    font-size: 1.3rem;
+  }
+
+  .cart-checkout-button {
+    padding: 12px 20px;
+  }
+
+  .cart-continue-shopping-button {
+    padding: 12px 20px;
+  }
+
+  .cart-total {
+    font-size: 1.3rem;
+    padding: 12px;
+  }
+
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .cart-item-quantity {
+    width: 50px;
+  }
+}
+
+/* For screens smaller than 480px (Mobile phones) */
+@media (max-width: 480px) {
+  .cart-container {
+    padding: 10px;
+  }
+
+  .cart-title {
+    font-size: 1.8rem;
+  }
+
+  .cart-item-list {
+    max-width: 80%;
+  }
+
+  .cart-item-name {
+    font-size: 1.2rem;
+  }
+
+  .cart-item {
+    padding: 8px;
+  }
+
+  .cart-item-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .cart-checkout-button,
+  .cart-continue-shopping-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .cart-item-quantity {
+    width: 25px;
+  }
+
+  .cart-total {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
 }

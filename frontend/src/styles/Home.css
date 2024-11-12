@@ -1,100 +1,93 @@
-/* Ensure the body takes up the full width and height of the page */
-body {
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  background-color: #DCDCDC; /* Grey background for the entire page */
-  font-family: "Orbitron", sans-serif; /* Use Orbitron font for consistency */
-}
+/* Importing Google font Orbitron for use in the project */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 
-/* Main container for the homepage with a background image */
 .home-container {
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center elements horizontally */
-  justify-content: center; /* Center elements vertically */
-  text-align: center; /* Center-align text */
-  padding: 20px; /* Padding around the content */
-  background-image: url("../assets/landing_page.png"); /* Background image for the container */
-  background-size: cover; /* Ensure the background image covers the container */
-  background-position: center bottom; /* Keeps the bottom of the image in view */
-  background-repeat: no-repeat; /* Prevent background image repetition */
-  min-height: 100vh; /* Ensure the container takes at least the full viewport height */
-  height: auto; /* Allow height to grow if necessary (content overflow) */
-  width: 100%; /* Full width for the container */
-  font-family: "Orbitron", sans-serif; /* Apply the Orbitron font */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for the container */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
-  overflow: hidden; /* Prevent content overflow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background-image: url("../assets/landing_page.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  height: auto;
+  width: 100%;
+  font-family: "Orbitron", sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+  overflow: hidden;
 }
 
 /* Keyframe animation for the homepage title to appear with scaling effect */
 @keyframes titleAnimation {
   0% {
-    opacity: 0; /* Start with invisible title */
-    transform: scale(0.8); /* Start with the title scaled down */
+    opacity: 0;
+    transform: scale(0.8);
   }
   100% {
-    opacity: 1; /* Fade in the title */
-    transform: scale(1); /* Scale the title back to normal size */
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-/* Styling for the homepage title */
 .home-title {
-  font-size: 5.5rem; /* Large font size for the title */
-  margin: -50px 0 20px; /* Negative margin at the top to pull the title up, margin at the bottom */
-  color: #333; /* Dark color for text */
-  animation: titleAnimation 1s ease forwards; /* Apply title animation */
+  font-size: 5.5rem;
+  margin: -50px 0 20px;
+  color: #333;
+  animation: titleAnimation 1s ease forwards;
   line-height: 1.2;
 }
 
-/* Button to encourage the user to shop now, styled with padding, colors, and hover effect */
 .shop-now {
-  padding: 12px 24px; /* Padding around the button */
-  font-size: 1.2rem; /* Font size for button text */
-  font-family: "Orbitron", sans-serif; /* Use Orbitron font */
-  color: #fff; /* White text color */
-  background-color: #333; /* Dark background for the button */
-  border: none; /* Remove the border */
-  border-radius: 30px; /* Rounded corners for the button */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions for background color and scale effect */
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-family: "Orbitron", sans-serif;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .shop-now:hover,
 .shop-now:focus {
-  background-color: #555; /* Lighter background color on hover/focus */
-  transform: scale(1.05); /* Slightly increase the button size on hover/focus */
+  background-color: #555;
+  transform: scale(1.05);
 }
 
-/* Mobile responsiveness for homepage */
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px (Tablets, small devices) */
 @media (max-width: 768px) {
-  /* Adjust homepage container */
   .home-container {
-    background-position: center center; /* Adjust background position for mobile */
+    background-position: center center;
   }
 
   .home-title {
-    font-size: 3.5rem; /* Adjust title size for smaller screens */
-    margin: 0 0 20px; /* Remove negative margin */
+    font-size: 3.5rem;
+    margin: 0 0 20px;
   }
 
   .shop-now {
-    padding: 10px 20px; /* Slightly smaller padding for mobile */
-    font-size: 1rem; /* Adjust button font size */
-    width: 100%; /* Make the button stretch across */
-    max-width: 300px; /* Set a max-width for better mobile alignment */
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
   }
 }
 
-/* Further adjustments for smaller screen sizes */
+/* For screens smaller than 480px (Mobile phones) */
 @media (max-width: 480px) {
   .home-title {
-    font-size: 2.5rem; /* Reduce title size even more on very small screens */
+    font-size: 2.5rem;
   }
 
   .shop-now {
-    font-size: 1rem; /* Keep button size consistent */
-    padding: 12px 18px; /* Maintain consistent padding */
+    font-size: 1rem;
+    padding: 12px 18px;
   }
 }

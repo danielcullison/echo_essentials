@@ -42,8 +42,6 @@ const ProductDetails = () => {
     }
 
     const productName = product ? product.name : "Product";
-    console.log("Adding to cart for product:", product);
-    console.log("Product ID:", id); // Log the product ID we're working with
 
     try {
       // First, check if the product is already in the cart
@@ -53,17 +51,13 @@ const ProductDetails = () => {
         },
       });
 
-      console.log("Cart response data:", cartResponse.data);
-
       // Make sure we're accessing the cart items correctly
       const cartItems = cartResponse.data?.cart?.cart || [];
       
       // Convert IDs to strings for comparison
       const cartItem = cartItems.find(item => String(item.product_id) === String(id));
-      console.log("Found cart item:", cartItem);
 
       if (cartItem) {
-        console.log("Updating existing cart item with PUT request");
         // Update existing item
         const updateResponse = await axios.put(
           `http://localhost:3000/api/cart/${id}`, // Using the product ID directly
@@ -76,10 +70,8 @@ const ProductDetails = () => {
             },
           }
         );
-        console.log("Update response:", updateResponse);
         alert(`${productName} quantity updated in your cart!`);
       } else {
-        console.log("Adding new item with POST request");
         // Add new item
         const addResponse = await axios.post(
           'http://localhost:3000/api/cart',
@@ -93,7 +85,6 @@ const ProductDetails = () => {
             },
           }
         );
-        console.log("Add response:", addResponse);
         alert(`${productName} added to your cart!`);
       }
     } catch (err) {

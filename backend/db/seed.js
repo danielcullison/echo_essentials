@@ -93,7 +93,7 @@ const init = async () => {
 
     await dropTables();
     await createTables();
-    await createUser("admin", "admin123", "admin123@example.comm", "admin");
+    await createUser("admin", "admin123", "admin123@example.com", "admin");
     await createUser("john_doe", "password123", "john@example.com", "user");
     await createUser("jane.smith", "securePass456", "jane@example.com", "user");
     await createUser(
@@ -346,7 +346,7 @@ const init = async () => {
       "https://www.lyxpro.com/cdn/shop/files/LYXEGST39BL-Strat-Guitar-Blue-Product-Image-2.jpg?v=1684763288&width=1946"
     );
     await createProduct(
-      "Fender Stratocaster Electric Guitar",
+      "Fender Electric Guitar",
       "The Squier® Affinity Series™ Stratocaster® is a fantastic entry point into the legendary Fender® family, offering iconic design and classic tone for today's aspiring guitarists. This model features several player-friendly enhancements, including a lightweight body and a slim C-shaped neck profile for added comfort. Its 2-point tremolo bridge ensures excellent tremolo action, while sealed die-cast tuning machines with split shafts provide smooth, precise tuning and effortless restringing. Equipped with three Squier single-coil Strat pickups and a 5-way switch, this guitar is versatile enough to suit any genre, making it perfect for players at any level.",
       249.99,
       1,
@@ -354,7 +354,7 @@ const init = async () => {
     );
 
     await createProduct(
-      "Yamaha F325D Acoustic Guitar",
+      "Yamaha Acoustic Guitar",
       "This beautifully crafted acoustic guitar offers exceptional sound quality and effortless playability. Featuring a classic dreadnought body shape, it delivers powerful resonance and projection. The spruce top enhances tonal clarity and brightness, while the rosewood fingerboard provides a smooth and comfortable playing surface. Perfect for musicians of all levels, this guitar combines quality construction with an inviting feel.",
       199.99,
       1,
