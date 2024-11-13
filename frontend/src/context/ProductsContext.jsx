@@ -13,7 +13,7 @@ export const ProductsProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/products');
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/products`);
         const data = await response.json();
         if (data.success) {
           setProducts(data.products);
