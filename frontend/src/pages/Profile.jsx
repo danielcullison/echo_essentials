@@ -19,7 +19,7 @@ const Profile = () => {
 
       try {
         // Fetch the user's profile data using the token from AuthContext
-        const response = await axios.get('http://localhost:3000/api/auth/me', {
+        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${user.token}` }, // Send token with request
         });
 

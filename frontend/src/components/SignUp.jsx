@@ -18,7 +18,7 @@ const SignUp = () => {
 
     try {
       // Send the sign-up data to the backend via a POST request
-      const response = await axios.post('http://localhost:3000/api/auth/signup', {
+      const response = await axios.post(`${import.meta.env.VITE_APP_API_URL}/api/auth/signup`, {
         username,
         password,
         email,

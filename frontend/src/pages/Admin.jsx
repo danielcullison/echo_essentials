@@ -29,10 +29,10 @@ const Admin = () => {
       try {
         // Fetch products and users in parallel using Promise.all
         const [productsResponse, usersResponse] = await Promise.all([
-          axios.get("http://localhost:3000/api/admin/products", {
+          axios.get(`${import.meta.env.VITE_APP_API_URL}/api/admin/products`, {
             headers: { Authorization: `Bearer ${user.token}` }, // Pass token in headers
           }),
-          axios.get("http://localhost:3000/api/admin/users", {
+          axios.get(`${import.meta.env.VITE_APP_API_URL}/api/admin/users`, {
             headers: { Authorization: `Bearer ${user.token}` },
           }),
         ]);
@@ -56,7 +56,7 @@ const Admin = () => {
 
     try {
       // Send POST request to add the new product
-      await axios.post("http://localhost:3000/api/admin/products", newProduct, {
+      await axios.post(`${import.meta.env.VITE_APP_API_URL}/api/admin/products`, newProduct, {
         headers: { Authorization: `Bearer ${user.token}` }, // Pass token in headers
       });
       setProducts((prev) => [...prev, newProduct]); // Add new product to state
@@ -81,7 +81,7 @@ const Admin = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/admin/products/${id}`,
+        `${import.meta.env.VITE_APP_API_URL}/api/admin/products/${id}`,
         newProduct,
         {
           headers: { Authorization: `Bearer ${user.token}` },
@@ -114,7 +114,7 @@ const Admin = () => {
 
     try {
       // Send DELETE request to remove the product
-      await axios.delete(`http://localhost:3000/api/admin/products/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_APP_API_URL}/api/admin/products/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setProducts((prev) => prev.filter((product) => product.id !== id)); // Remove product from state

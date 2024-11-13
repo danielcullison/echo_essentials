@@ -23,7 +23,7 @@ const Cart = () => {
 
       try {
         // Send request to fetch cart items for the logged-in user
-        const response = await axios.get("http://localhost:3000/api/cart", {
+        const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/api/cart`, {
           headers: { Authorization: `Bearer ${user.token}` }, // Include token for authorization
         });
 
@@ -61,7 +61,7 @@ const Cart = () => {
     try {
       // Send request to create an order
       const response = await axios.post(
-        "http://localhost:3000/api/orders",
+        `${import.meta.env.VITE_APP_API_URL}/api/orders`,
         {
           user_id: user.id,
           total_amount: totalAmount,
@@ -92,7 +92,7 @@ const Cart = () => {
     
     try {
       // Log the request URL and headers
-      const url = `http://localhost:3000/api/cart/${productId}`;
+      const url = `${import.meta.env.VITE_APP_API_URL}/api/cart/${productId}`;
   
       // Send request to update the cart item quantity
       const response = await axios.put(url, { quantity: newQuantity }, {
@@ -125,7 +125,7 @@ const Cart = () => {
 
     try {
       // Send request to delete the cart item
-      await axios.delete(`http://localhost:3000/api/cart/${productId}`, {
+      await axios.delete(`${import.meta.env.VITE_APP_API_URL}/api/cart/${productId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
 
@@ -144,7 +144,7 @@ const Cart = () => {
     try {
       // Send request to add the item to the cart
       const response = await axios.post(
-        "http://localhost:3000/api/cart",
+        `${import.meta.env.VITE_APP_API_URL}/api/cart`,
         { product_id: productId, quantity },
         {
           headers: { Authorization: `Bearer ${user.token}` },

@@ -14,7 +14,7 @@ const Products = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/products");
+        const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/api/products`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -47,7 +47,7 @@ const Products = () => {
 
     try {
       // Check if the product is already in the cart
-      const response = await axios.get('http://localhost:3000/api/cart', {
+      const response = await axios.get(`${import.meta.env.VITE_APP_API_URL}/api/cart`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -60,7 +60,7 @@ const Products = () => {
         if (cartItem) {
           // If the product is already in the cart, update the quantity
           await axios.put(
-            `http://localhost:3000/api/cart/${cartItem.product_id}`,
+            `${import.meta.env.VITE_APP_API_URL}/api/cart/${cartItem.product_id}`,
             {
               quantity: cartItem.quantity + 1, // Increase the quantity by 1
             },
@@ -74,7 +74,7 @@ const Products = () => {
         } else {
           // If the product is not in the cart, add it
           await axios.post(
-            'http://localhost:3000/api/cart',
+            `${import.meta.env.VITE_APP_API_URL}/api/cart`,
             {
               product_id: productId,
               quantity: 1, // Default quantity is 1
